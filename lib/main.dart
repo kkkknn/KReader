@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kreader/app.dart';
 import 'package:kreader/pages/login.dart';
 import 'package:kreader/pages/recommend.dart';
+import 'package:kreader/pages/welcome/welcome_page.dart';
+import 'constants.dart';
 
 
 void main() {
@@ -14,12 +16,14 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'flutter demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        scaffoldBackgroundColor: Colors.white,
       ),
       routes: {
-        '/':(BuildContext context)=>const Login(),
+        '/':(BuildContext context)=>WelcomePage(),
         '/home':(BuildContext context)=>const App(),
         '/login':(BuildContext context)=>const Login(),
       },
