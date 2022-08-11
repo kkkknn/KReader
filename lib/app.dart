@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kreader/pages/classification.dart';
-import 'package:kreader/pages/myinfo.dart';
-import 'package:kreader/pages/option.dart';
-import 'package:kreader/pages/recommend.dart';
+import 'package:kreader/pages/home/classification.dart';
+import 'package:kreader/pages/home/myinfo.dart';
+import 'package:kreader/pages/home/recommend.dart';
+
+import 'pages/home/option/option.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class AppState extends State<App> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: TabBarView(
           controller: controller,
