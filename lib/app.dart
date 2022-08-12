@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kreader/pages/home/classification.dart';
+import 'package:kreader/pages/home/classification/classification.dart';
+import 'package:kreader/pages/home/main/main_page.dart';
 import 'package:kreader/pages/home/myinfo.dart';
-import 'package:kreader/pages/home/recommend.dart';
 
 import 'pages/home/option/option.dart';
 
@@ -35,7 +35,7 @@ class AppState extends State<App> with SingleTickerProviderStateMixin {
         body: TabBarView(
           controller: controller,
           children: const <Widget>[
-            Recommend(),
+            MainPage(),
             Classification(),
             MyInfo(),
             Option(),

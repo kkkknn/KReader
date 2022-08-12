@@ -39,6 +39,9 @@ dependencies:
   # shared_preferences
   shared_preferences: ^2.0.15
 
+  # 轮播插件 flutter_swiper: ^1.1.6
+  flutter_swiper_plus: ^2.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
