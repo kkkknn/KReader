@@ -12,6 +12,7 @@ class ClassificationState extends State<Classification> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
             titleSpacing: 0,  //清除title左右padding，默认情况下会有一定的padding距离

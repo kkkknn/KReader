@@ -57,6 +57,7 @@ class SearchBarState extends State<SearchBar> {
                   const Padding( padding: EdgeInsets.only(left: 8),),
                   const Icon(
                     Icons.search,
+                    color: Colors.black,
                   ),
                   const Padding( padding: EdgeInsets.only(left: 8),),
                   Expanded(
@@ -67,7 +68,21 @@ class SearchBarState extends State<SearchBar> {
                       focusNode: _focusNode,
                       style: const TextStyle(fontSize: 14, color: Colors.black),
                       decoration: InputDecoration(
-                          labelText: widget.hintLabel),
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent)
+                        ),
+                        hintText: widget.hintLabel,
+                        contentPadding: const EdgeInsets.only(top: 0,bottom: 0),
+                        enabledBorder:  const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)
+                        ),
+                        disabledBorder:  const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)
+                        ),
+                        focusedBorder:  const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)
+                        ),
+                      ),
                       maxLines: 1,
                     ),
                   ),
@@ -77,7 +92,8 @@ class SearchBarState extends State<SearchBar> {
                     child: GestureDetector(
                       onTap: () => {_textEditingController.clear()},
                       child: const Icon(
-                        Icons.clear
+                        Icons.clear,
+                        color: Colors.black,
                       ),
                     ),
                   ),
