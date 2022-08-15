@@ -1,9 +1,9 @@
-
-//单例模式 dio 框架
 import 'package:dio/dio.dart';
+import 'package:kreader/http/request/user.dart';
+import 'package:flutter/material.dart';
 
 class DioUtil{
-  var dio;
+  late Dio dio;
   late BaseOptions options;
 
   //请求头常量
@@ -48,14 +48,11 @@ class DioUtil{
 
   Future<Response> login(String name,String password) async {
     //json拼接
-
+    User user=User(name,password);
+    debugPrint(user.toJson().toString());
     return await dio.post(
         '/auth/sign-in',
-        data: {
-          'id': 12,
-          'name': 'wendu'
-        },
-      option
+      queryParameters: user.toJson(),
     );
   }
 

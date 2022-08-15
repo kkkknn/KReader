@@ -5,8 +5,11 @@ import 'package:kreader/pages/signup/signup_page.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 
 class LoginForm extends StatelessWidget {
+  Function press;
+
   const LoginForm({
     Key? key,
+    required this.press,
   }) : super(key: key);
 
   @override
@@ -51,6 +54,7 @@ class LoginForm extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 20.0),
               ),
               onPressed: () {
+                //todo 获取输入框内容
                 Navigator.pushNamed(context, '/home');
               },
               child: Text(

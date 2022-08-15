@@ -45,6 +45,12 @@ dependencies:
   # 网络框架dio
   dio: ^4.0.6
 
+  # json_serializable json 框架
+  json_serializable: ^6.3.1
+
+  #  build_runner: ^2.2.0
+  build_runner: ^2.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
