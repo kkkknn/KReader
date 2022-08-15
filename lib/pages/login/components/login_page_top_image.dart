@@ -12,22 +12,19 @@ class LoginPageTopImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          "登录",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: defaultPadding * 2),
+        const SizedBox(height: Config.defaultPadding * 2),
         Row(
           children: [
             const Spacer(),
             Expanded(
               flex: 8,
-              child: SvgPicture.asset("assets/icons/login.svg"),
+              child: SvgPicture.asset("assets/icons/logo.svg",
+                color: Config.primaryLightColor,),
             ),
             const Spacer(),
           ],
         ),
-        const SizedBox(height: defaultPadding * 2),
+        const SizedBox(height: Config.defaultPadding * 2),
       ],
     );
   }

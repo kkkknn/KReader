@@ -18,7 +18,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               Navigator.pushNamed(context, '/login');
             },
             style: ElevatedButton.styleFrom(
-                primary: kPrimaryColor,
+                primary: Config.primaryColor,
                 padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 20.0),
                 elevation: 0
             ),
@@ -35,7 +35,7 @@ class LoginAndSignupBtn extends StatelessWidget {
                 Navigator.pushNamed(context, '/signup');
               },
               style: ElevatedButton.styleFrom(
-                  primary: kPrimaryLightColor,
+                  primary: Config.primaryColorButton,
                   padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 20.0),
                   elevation: 0
               ),

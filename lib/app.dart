@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/home/classification/classification.dart';
 import 'package:kreader/pages/home/main/main_page.dart';
 import 'package:kreader/pages/home/myinfo.dart';
@@ -42,11 +43,12 @@ class AppState extends State<App> with SingleTickerProviderStateMixin {
           ],
         ),
         bottomNavigationBar: Material(
-          color: Colors.white,
+          color: Config.primaryLightColor,
           child: TabBar(
             controller: controller,
-            labelColor: Colors.deepPurpleAccent,
-            unselectedLabelColor: Colors.black26,
+            labelColor: Config.primaryColor,
+            unselectedLabelColor:  Config.primaryColor26,
+            indicatorColor: Config.primarySwatchColor[400],
             tabs: const <Widget>[
               Tab(
                 text: "推荐",

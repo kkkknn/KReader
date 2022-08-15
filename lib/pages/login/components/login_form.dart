@@ -18,7 +18,7 @@ class LoginForm extends StatelessWidget {
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
+            cursorColor: Config.primaryColor,
             onSaved: (email) {},
             decoration: const InputDecoration(
               hintText: "请输入账号",
@@ -29,11 +29,11 @@ class LoginForm extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+            padding: const EdgeInsets.symmetric(vertical: Config.defaultPadding),
             child: TextFormField(
               textInputAction: TextInputAction.done,
               obscureText: true,
-              cursorColor: kPrimaryColor,
+              cursorColor: Config.primaryColor,
               decoration: const InputDecoration(
                 hintText: "请输入密码",
                 prefixIcon: Padding(
@@ -43,7 +43,7 @@ class LoginForm extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: defaultPadding),
+          const SizedBox(height: Config.defaultPadding),
           Hero(
             tag: "login_btn",
             child: ElevatedButton(
@@ -58,7 +58,7 @@ class LoginForm extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: defaultPadding),
+          const SizedBox(height: Config.defaultPadding),
           AlreadyHaveAnAccountCheck(
             press: () {
               Navigator.push(

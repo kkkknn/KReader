@@ -12,22 +12,19 @@ class SignUpPageTopImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "注册".toUpperCase(),
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: defaultPadding),
+        const SizedBox(height: Config.defaultPadding),
         Row(
           children: [
             const Spacer(),
             Expanded(
               flex: 8,
-              child: SvgPicture.asset("assets/icons/signup.svg"),
+              child: SvgPicture.asset("assets/icons/logo.svg",
+                color: Config.primaryLightColor,),
             ),
             const Spacer(),
           ],
         ),
-        const SizedBox(height: defaultPadding),
+        const SizedBox(height: Config.defaultPadding),
       ],
     );
   }

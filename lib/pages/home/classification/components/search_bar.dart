@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreader/pages/constants.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({Key? key, required this.hintLabel}) : super(key: key);
@@ -109,7 +110,7 @@ class SearchBarState extends State<SearchBar> {
             child: Container(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: const Text("取消",
-                  style: TextStyle(fontSize: 16, color: Color(0xFF3D7DFF))),
+                  style: TextStyle(fontSize: 16, color: Config.primaryColor)),
             ),
           ),
         ],

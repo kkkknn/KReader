@@ -46,18 +46,21 @@ class RecommendView extends StatelessWidget {
         height: width/0.75,
         child: Padding(
           padding: const EdgeInsets.all(5),
-          child: Column(
-            children: <Widget>[
-              Image.network(data[index].imageUrl,fit: BoxFit.cover,),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                data[index].bookName,
-                style: const TextStyle(fontSize: 18.0,),
-              ),
-            ],
-          ),
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: Column(
+              children: <Widget>[
+                Image.network(data[index].imageUrl,fit: BoxFit.cover,),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  data[index].bookName,
+                  style: const TextStyle(fontSize: 18.0,),
+                ),
+              ],
+            ),
+          )
         ),
       ),
     );
