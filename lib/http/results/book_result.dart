@@ -161,9 +161,9 @@ class _creator extends Object {
 
   _creator(this.id,this.gender,this.name,this.title,this.verified,this.exp,this.level,this.characters,this.role,this.avatar,this.slogan,);
 
-  factory _creator.fromJson(Map<String, dynamic> srcJson) => _$_creatorFromJson(srcJson);
+  factory _creator.fromJson(Map<String, dynamic> srcJson) => _$creatorFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$_creatorToJson(this);
+  Map<String, dynamic> toJson() => _$creatorToJson(this);
 
 }
 

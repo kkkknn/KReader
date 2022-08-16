@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreader/http/dio_util.dart';
 import 'package:kreader/pages/login/components/login_page_top_image.dart';
 import 'package:kreader/pages/responsive.dart';
 
@@ -22,10 +23,14 @@ class LoginPage extends StatelessWidget {
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:[
                     SizedBox(
                       width: 450,
-                      child: LoginForm(),
+                      child: LoginForm(
+                        press: (String name,String password){
+                          debugPrint('接收点击事件 name '+name+" password "+password);
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -50,13 +55,25 @@ class MobileLoginPage extends StatelessWidget {
       children: <Widget>[
         const LoginPageTopImage(),
         Row(
-          children: const [
-            Spacer(),
+          children: [
+            const Spacer(),
             Expanded(
               flex: 8,
-              child: LoginForm(),
+              child: LoginForm(
+                press: (String name,String password) async {
+                  DioUtil util = DioUtil.getInstance();
+                  bool flag=await util.login(name, password);
+                  if(flag){
+                    debugPrint('登录成功');
+                  }else{
+                    debugPrint('登陆失败');
+                  }
+                  debugPrint('接收点击事件 name '+name+" password "+password);
+                  Navigator.pushNamed(context,"/home");
+                },
+              ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ],

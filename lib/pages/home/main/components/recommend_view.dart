@@ -26,6 +26,7 @@ class RecommendView extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.width/data.length/0.75,
           child: ListView.builder(
+            itemCount: data.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: _cellForRow,
           ),

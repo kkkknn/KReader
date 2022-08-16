@@ -51,6 +51,9 @@ dependencies:
   #  build_runner: ^2.2.0
   build_runner: ^2.2.0
 
+  # 加密库 HMAC-SHA256 哔咔API要用
+  crypto: ^3.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,8 +78,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/icons/
-     - assets/images/
+  - assets/icons/
+  - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

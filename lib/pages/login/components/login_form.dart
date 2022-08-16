@@ -6,8 +6,10 @@ import '../../../components/already_have_an_account_acheck.dart';
 
 class LoginForm extends StatelessWidget {
   Function press;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  const LoginForm({
+  LoginForm({
     Key? key,
     required this.press,
   }) : super(key: key);
@@ -15,10 +17,12 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Form(
       child: Column(
         children: [
           TextFormField(
+            controller: _nameController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: Config.primaryColor,
@@ -34,6 +38,7 @@ class LoginForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: Config.defaultPadding),
             child: TextFormField(
+              controller: _passwordController,
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: Config.primaryColor,
@@ -53,10 +58,7 @@ class LoginForm extends StatelessWidget {
               style:  ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 20.0),
               ),
-              onPressed: () {
-                //todo 获取输入框内容
-                Navigator.pushNamed(context, '/home');
-              },
+              onPressed: () =>press(_nameController.text,_passwordController.text),
               child: Text(
                 "登录".toUpperCase(),
               ),

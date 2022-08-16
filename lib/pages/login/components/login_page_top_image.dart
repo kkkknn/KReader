@@ -18,8 +18,7 @@ class LoginPageTopImage extends StatelessWidget {
             const Spacer(),
             Expanded(
               flex: 8,
-              child: SvgPicture.asset("assets/icons/logo.svg",
-                color: Config.primaryLightColor,),
+              child: Image.asset('assets/icons/logo.png',color: Config.primaryColor),
             ),
             const Spacer(),
           ],
