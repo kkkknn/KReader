@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/home/classification/classification.dart';
 import 'package:kreader/pages/home/main/main_page.dart';
-import 'package:kreader/pages/home/myinfo.dart';
+import 'package:kreader/pages/home/myinfo/myinfo.dart';
 
 import 'pages/home/option/option.dart';
 

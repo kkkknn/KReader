@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:kreader/http/request/user.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +9,7 @@ import 'dart:convert';
 import 'package:convert/convert.dart';
 
 class DioUtil {
-  late Dio dio;
+  final Dio _dio = Dio();
 
   //请求头常量
   static const String _nonce = "b1ab87b4800d4d4590a11701b8551afa";
@@ -16,29 +19,30 @@ class DioUtil {
   static const String _base = "https://picaapi.picacomic.com/";
 
   DioUtil._internal() {
-    dio = Dio();
-    dio.options = BaseOptions(
-      baseUrl: _base,
+    _dio.options = BaseOptions(
+      validateStatus: (_) => true,
+      responseType:ResponseType.json,
       connectTimeout: 5000,
       receiveTimeout: 5000,
       headers: {
         'Accept': 'application/json',
         'api-key': _apiKey,
         "accept": "application/vnd.picacomic.com.v1+json",
-        "app-channel": "2",
+        "app-channel": "1",
         "nonce": _nonce,
         "app-version": "2.2.1.2.3.3",
         "app-uuid": "defaultUuid",
         "app-platform": "android",
         "app-build-version": "44",
-        "Content-Type": "application/json; charset=UTF-8",
+        'Content-Type': 'application/json; charset=UTF-8',
         "User-Agent": "okhttp/3.8.1",
         "image-quality": "original",
-        //"authorization":     "",
-        //"signature":         "",
-        //"time":              int(time()))
+        /*"authorization":     "",
+        "signature":         "",
+        "time":             '',*/
       },
     );
+
   }
 
   static DioUtil instance = DioUtil._internal();
@@ -52,21 +56,26 @@ class DioUtil {
   Future<bool> login(String name, String password) async {
     //json拼接
     User user = User(name, password);
+    Map<String,dynamic> map =user.toJson();
     debugPrint(user.toJson().toString());
     var api = "auth/sign-in";
     var url = _base + api;
 
-    Response response =  await _post(
+    Response response = await _post(
       url,
-      user.toJson().toString(),
+      map,
     );
-    dio.options.headers['authorization'] = response.data["data"]['token'];
-    return true;
+    if(response.statusCode==200){
+      debugPrint(response.data.toString());
+      _dio.options.headers['authorization'] = response.data["data"]['token'];
+      return true;
+    }
+    return false;
   }
 
   // 获取当前时间戳
   static String _currentTimeMillis() {
-    return DateTime.now().microsecondsSinceEpoch.toString().substring(0,10);
+    return DateTime.now().microsecondsSinceEpoch.toString().substring(0, 10);
   }
 
   static Digest _hexdigest(String str) {
@@ -84,19 +93,22 @@ class DioUtil {
   }
 
   // post 命令
-  Future<Response<dynamic>> _post(String url, String data) async {
+  Future<Response<dynamic>> _post(String url, Map<String,dynamic> map) async {
     //时间戳添加
     var time = _currentTimeMillis();
-    dio.options.headers['time'] = time;
+    _dio.options.headers['time'] = time;
+    debugPrint(_dio.options.headers['time'].toString());
 
     //请求加密 HMAC-SHA256
     var str = '${url.replaceAll(_base, '')}$time${_nonce}POST$_apiKey';
     String lowStr = str.toLowerCase();
-    dio.options.headers['signature'] = _hexdigest(lowStr);
+    _dio.options.headers['signature'] = _hexdigest(lowStr);
+    debugPrint(_dio.options.headers['signature'].toString());
 
-    return await dio.post(
+
+    return await _dio.post(
       url,
-      data: {'email': '18810836346', 'password': 'QQ2244355530'},
+      data: map,
     );
   }
 }

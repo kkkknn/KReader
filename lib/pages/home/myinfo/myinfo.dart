@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'components/banner_view.dart';
+
 class MyInfo extends StatefulWidget {
   const MyInfo({Key? key}) : super(key: key);
 
@@ -10,16 +12,13 @@ class MyInfo extends StatefulWidget {
 class MyInfoState extends State<MyInfo> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("我"),
-          backgroundColor: const Color.fromARGB(225, 119, 136, 213),
-          centerTitle: true,
-        ),
-        body: const Center(
-          child: Text("我11"),
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: const [
+          BannerView(),
+          Text('已下载'),
+          Text('最近观看')
+        ],
       ),
     );
   }

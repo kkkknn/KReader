@@ -17,38 +17,39 @@ class ClassifyView extends StatelessWidget {
       runSpacing: 10,
       alignment: WrapAlignment.center,
       children: datas
-          .map((e) => Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Config.primaryLightColor,
-                    width: 2,
-                    style: BorderStyle.solid,
-                  ),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(20),
-                  onTap: () => onTap(e.name),
-                  child: Container(
-                      width: 150,
-                      height: 180,
-                      padding: EdgeInsets.zero,
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: Column(
-                          children: [
-                            Image.network(
-                              e.imageUrl,
-                            ),
-                            Text(
-                              e.name,
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+          .map(
+            (e) => InkWell(
+              onTap: () => onTap(e.name),
+              child: Container(
+                  width: 150,
+                  height: 180,
+                  padding: EdgeInsets.zero,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 150,
+                          //超出部分，可裁剪
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Image.network(
+                            e.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      )),
-                ),
-              ))
+                        Text(
+                          e.name,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  )),
+            ),
+          )
           .toList(),
     );
   }
