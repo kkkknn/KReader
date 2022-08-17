@@ -8,6 +8,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "46.0.0"
+  ai_progress:
+    dependency: "direct main"
+    description:
+      name: ai_progress
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   analyzer:
     dependency: transitive
     description:
@@ -202,6 +209,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_easyloading:
+    dependency: "direct main"
+    description:
+      name: flutter_easyloading
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.5"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -209,6 +223,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
+  flutter_spinkit:
+    dependency: transitive
+    description:
+      name: flutter_spinkit
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.1.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -296,6 +317,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.3.1"
+  like_button:
+    dependency: "direct main"
+    description:
+      name: like_button
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.4"
   lints:
     dependency: transitive
     description:

@@ -54,6 +54,15 @@ dependencies:
   # 加密库 HMAC-SHA256 哔咔API要用
   crypto: ^3.0.2
 
+  # ai_progress: ^2.0.0
+  ai_progress: ^2.0.0
+
+  # like_button: ^2.0.4
+  like_button: ^2.0.4
+
+  # flutter_easyloading: ^3.0.5
+  flutter_easyloading: ^3.0.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
