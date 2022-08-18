@@ -4,6 +4,7 @@ import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/login/login_page.dart';
 import 'package:kreader/pages/signup/signup_page.dart';
 import 'package:kreader/pages/welcome/welcome_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 
 void main() {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget{
         '/login':(BuildContext context)=>const LoginPage(),
         '/signup':(BuildContext context)=>const SignUpPage(),
       },
+      builder: EasyLoading.init(),
     );
   }
   

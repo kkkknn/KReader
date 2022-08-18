@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kreader/pages/home/main/components/book.dart';
+import 'package:kreader/pages/components/book.dart';
 import 'package:kreader/pages/home/main/components/recommend_view.dart';
 
 class Option extends StatefulWidget {
@@ -12,8 +12,10 @@ class Option extends StatefulWidget {
 class OptionState extends State<Option> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('设置')
+    return SafeArea(
+        child: Container(
+            child: Text('设置'),
+        ),
     );
   }
 }

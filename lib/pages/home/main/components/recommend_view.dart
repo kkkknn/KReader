@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kreader/pages/home/main/components/book.dart';
+import 'package:kreader/pages/components/book.dart';
 
 class RecommendView extends StatelessWidget {
   final String title;

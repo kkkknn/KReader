@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/signup/signup_page.dart';
 
@@ -23,7 +24,7 @@ class LoginForm extends StatelessWidget {
         children: [
           TextFormField(
             controller: _nameController,
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.none,
             textInputAction: TextInputAction.next,
             cursorColor: Config.primaryColor,
             onSaved: (email) {},
@@ -58,7 +59,18 @@ class LoginForm extends StatelessWidget {
               style:  ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 20.0),
               ),
-              onPressed: () =>press(_nameController.text,_passwordController.text),
+              onPressed: (){
+                var name = _nameController.text;
+                var password = _passwordController.text;
+                if(name.isEmpty){
+                  //显示框验证失败
+                  EasyLoading.showError('用户名不能为空');
+                }else if(password.isEmpty){
+                  EasyLoading.showError('密码不能为空');
+                }else{
+                  press(_nameController.text,_passwordController.text);
+                }
+              },
               child: Text(
                 "登录".toUpperCase(),
               ),
@@ -67,14 +79,15 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: Config.defaultPadding),
           AlreadyHaveAnAccountCheck(
             press: () {
-              Navigator.push(
+              EasyLoading.showToast('注册 暂不开放');
+              /*Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
                     return const SignUpPage();
                   },
                 ),
-              );
+              );*/
             },
           ),
         ],

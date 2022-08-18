@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:kreader/pages/constants.dart';
 
 
@@ -32,7 +33,8 @@ class LoginAndSignupBtn extends StatelessWidget {
             tag: ('signup_btn'),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/signup');
+                EasyLoading.showToast('注册 暂不开放');
+                //Navigator.pushNamed(context, '/signup');
               },
               style: ElevatedButton.styleFrom(
                   primary: Config.primaryColorButton,

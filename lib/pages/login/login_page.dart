@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
                       width: 450,
                       child: LoginForm(
                         press: (String name,String password){
-                          debugPrint('接收点击事件 name '+name+" password "+password);
+                          login(context,name,password);
                         },
                       ),
                     ),
@@ -41,6 +41,19 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+}
+
+void login(BuildContext context,String name, String password) async {
+  debugPrint('接收点击事件 name '+name+" password "+password);
+  Navigator.pushNamed(context,"/home");
+  /*DioUtil util = DioUtil.getInstance();
+  bool flag=await util.login(name, password);
+  if(flag){
+    debugPrint('登录成功');
+    Navigator.pushNamed(context,"/home");
+  }else{
+    debugPrint('登陆失败');
+  }*/
 }
 
 class MobileLoginPage extends StatelessWidget {
@@ -61,16 +74,8 @@ class MobileLoginPage extends StatelessWidget {
               flex: 8,
               child: LoginForm(
                 press: (String name,String password) async {
-                  Navigator.pushNamed(context,"/home");
-                  /*DioUtil util = DioUtil.getInstance();
-                  bool flag=await util.login('18810836346', 'QQ2244355530');
-                  if(flag){
-                    debugPrint('登录成功');
-                    Navigator.pushNamed(context,"/home");
-                  }else{
-                    debugPrint('登陆失败');
-                  }
-                  debugPrint('接收点击事件 name '+name+" password "+password);*/
+                  login(context, name,password);
+
                 },
               ),
             ),
