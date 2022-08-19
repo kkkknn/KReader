@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:kreader/pages/constants.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key, required this.hintLabel}) : super(key: key);
-
-  final String hintLabel;
+  SearchBar(
+      {Key? key,
+      required this.hintLabel,
+      required this.onTap,
+      required this.searchWord})
+      : super(key: key);
+  String searchWord;
+  String hintLabel;
+  Function onTap;
 
   @override
   State<StatefulWidget> createState() {
@@ -14,18 +20,24 @@ class SearchBar extends StatefulWidget {
 
 class SearchBarState extends State<SearchBar> {
   late FocusNode _focusNode;
-
   ///默认不展示控件
-
   bool _offstage = true;
 
-  ///监听TextField内容变化
-  final TextEditingController _textEditingController = TextEditingController();
+
+  final TextEditingController _textEditingController =TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
+    if(widget.searchWord.isNotEmpty){
+      _textEditingController.text=widget.searchWord;
+      _textEditingController.selection=TextSelection.fromPosition(TextPosition(
+          affinity: TextAffinity.downstream,
+          offset: widget.searchWord.length),
+      );
+    }
     _textEditingController.addListener(() {
       var isVisible = _textEditingController.text.isNotEmpty;
       _updateDelIconVisible(isVisible);
@@ -51,16 +63,21 @@ class SearchBarState extends State<SearchBar> {
               height: double.infinity,
               margin: const EdgeInsets.only(left: 16),
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255,245, 246, 250), borderRadius: BorderRadius.circular(4)),
+                  color: const Color.fromARGB(255, 245, 246, 250),
+                  borderRadius: BorderRadius.circular(4)),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Padding( padding: EdgeInsets.only(left: 8),),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                  ),
                   const Icon(
                     Icons.search,
                     color: Colors.black,
                   ),
-                  const Padding( padding: EdgeInsets.only(left: 8),),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                  ),
                   Expanded(
                     flex: 1,
                     child: TextField(
@@ -70,24 +87,23 @@ class SearchBarState extends State<SearchBar> {
                       style: const TextStyle(fontSize: 14, color: Colors.black),
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent)
-                        ),
+                            borderSide: BorderSide(color: Colors.transparent)),
                         hintText: widget.hintLabel,
-                        contentPadding: const EdgeInsets.only(top: 0,bottom: 0),
-                        enabledBorder:  const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)
-                        ),
-                        disabledBorder:  const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)
-                        ),
-                        focusedBorder:  const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent)
-                        ),
+                        contentPadding:
+                            const EdgeInsets.only(top: 0, bottom: 0),
+                        enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        disabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent)),
                       ),
                       maxLines: 1,
                     ),
                   ),
-                  const Padding( padding: EdgeInsets.only(left: 8),),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                  ),
                   Offstage(
                     offstage: _offstage,
                     child: GestureDetector(
@@ -98,20 +114,20 @@ class SearchBarState extends State<SearchBar> {
                       ),
                     ),
                   ),
-                  const Padding( padding: EdgeInsets.only(left: 8),),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                  ),
                 ],
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
+          TextButton(
+            onPressed: () {
               _focusNode.unfocus();
+              widget.onTap(_textEditingController.text);
             },
-            child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: const Text("取消",
-                  style: TextStyle(fontSize: 16, color: Config.primaryColor)),
-            ),
+            child: const Text('搜索',
+                style: TextStyle(fontSize: 14, color: Config.primaryColor),),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:kreader/pages/home/classification/components/classify.dart';
 import 'package:kreader/pages/home/classification/components/classify_view.dart';
 import 'package:kreader/pages/home/classification/components/key_view.dart';
 import 'package:kreader/pages/components/search_bar.dart';
+import 'package:kreader/pages/search/search_page.dart';
 
 class Classification extends StatefulWidget {
   const Classification({Key? key}) : super(key: key);
@@ -20,8 +21,17 @@ class ClassificationState extends State<Classification> {
         child: Column(
           crossAxisAlignment:CrossAxisAlignment.start,
           children: [
-            const SearchBar(
-              hintLabel: "请输入要搜索的本子",
+            SearchBar(
+              searchWord: '',
+              hintLabel: "请输入要搜索的本子", onTap: ()=>(String str){
+                debugPrint("您搜索的是$str");
+                //跳转页面
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context){
+                      return SearchPage(str);//跳转到编辑日志页面
+                    })
+                );
+            },
             ),
             const Text('大家都在搜索的关键字',textAlign: TextAlign.left,),
             Container(
@@ -99,6 +109,8 @@ class ClassificationState extends State<Classification> {
       ),
     );
   }
+
+
 
 
 }
