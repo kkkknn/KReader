@@ -19,21 +19,24 @@ class ClassificationState extends State<Classification> {
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment:CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SearchBar(
               searchWord: '',
-              hintLabel: "请输入要搜索的本子", onTap: ()=>(String str){
+              hintLabel: "请输入要搜索的本子",
+              onTap: (String str) {
                 debugPrint("您搜索的是$str");
                 //跳转页面
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context){
-                      return SearchPage(str);//跳转到编辑日志页面
-                    })
-                );
-            },
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return SearchPage(str); //跳转到编辑日志页面
+                }));
+              },
             ),
-            const Text('大家都在搜索的关键字',textAlign: TextAlign.left,),
+            const Text(
+              '大家都在搜索的关键字',
+              textAlign: TextAlign.left,
+            ),
             Container(
                 alignment: Alignment.topCenter,
                 padding: const EdgeInsets.all(4),
@@ -47,17 +50,19 @@ class ClassificationState extends State<Classification> {
                     '分类11231',
                     '分类1123123',
                   ],
-                  onPress: (String key){
-                    debugPrint('您点击的是'+key);
+                  onPress: (String key) {
+                    debugPrint('您点击的是' + key);
                   },
-                )
+                )),
+            const Text(
+              '热门分类',
+              textAlign: TextAlign.left,
             ),
-            const Text('热门分类',textAlign: TextAlign.left,),
             Container(
                 alignment: Alignment.topCenter,
                 child: ClassifyView(
-                  onPress: (String key){
-                    debugPrint('您点击的是'+key);
+                  onPress: (String key) {
+                    debugPrint('您点击的是' + key);
                   },
                   datas: [
                     Classify(
@@ -79,38 +84,40 @@ class ClassificationState extends State<Classification> {
                     Classify(
                       '分类4',
                       'assets/test/author.jpg',
-                    ),Classify(
+                    ),
+                    Classify(
                       '分类4',
                       'assets/test/author.jpg',
-                    ),Classify(
+                    ),
+                    Classify(
                       '分类4',
                       'assets/test/author.jpg',
-                    ),Classify(
+                    ),
+                    Classify(
                       '分类4',
                       'assets/test/author.jpg',
-                    ),Classify(
+                    ),
+                    Classify(
                       '分类4',
                       'assets/test/author.jpg',
-                    ),Classify(
+                    ),
+                    Classify(
                       '分类4',
                       'assets/test/author.jpg',
-                    ),Classify(
+                    ),
+                    Classify(
                       '分类4',
                       'assets/test/author.jpg',
-                    ),Classify(
+                    ),
+                    Classify(
                       '分类4',
                       'assets/test/author.jpg',
                     ),
                   ],
-                )
-            ),
+                )),
           ],
         ),
       ),
     );
   }
-
-
-
-
 }

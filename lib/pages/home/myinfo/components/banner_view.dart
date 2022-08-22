@@ -5,7 +5,9 @@ import 'package:ai_progress/ai_progress.dart';
 import 'package:like_button/like_button.dart';
 
 class BannerView extends StatelessWidget {
-  const BannerView({Key? key}) : super(key: key);
+  bool isSign=false;
+
+  BannerView({Key? key,required this.isSign}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,20 +86,15 @@ class BannerView extends StatelessWidget {
             right: 0,
             child: Padding(
                 padding: EdgeInsets.all(size.width/20),
-                child:LikeButton(
-                  size: 30,
-                  circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                  bubblesColor: BubblesColor(
-                    dotPrimaryColor: Color(0xff33b5e5),
-                    dotSecondaryColor: Color(0xff0099cc),
+                child:TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: createTextBtnBgColor(),
                   ),
-                  likeBuilder: (bool isLiked) {
-                    return Icon(
-                      Icons.assignment,
-                      color: isLiked ? Colors.deepPurpleAccent : Colors.grey,
-                      size: 30,
-                    );
+                  onPressed: (){
+                    isSign = !isSign;
+                    debugPrint('点击签到了');
                   },
+                  child: const Text('签到',style: TextStyle(color: Colors.blue),),
                 ),
             ),
           ),
@@ -106,4 +103,19 @@ class BannerView extends StatelessWidget {
       ),
     );
   }
+
+  MaterialStateProperty<Color> createTextBtnBgColor() {
+
+    return MaterialStateProperty.resolveWith((states) {
+      if(isSign){
+        return Colors.pink;
+      }else if (states.contains(MaterialState.pressed)) {
+        return Colors.pink;
+      } else if (states.contains(MaterialState.disabled)) {
+        return Colors.grey;
+      }
+      return Colors.grey;
+    });
+  }
+
 }

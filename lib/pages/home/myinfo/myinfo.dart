@@ -17,7 +17,7 @@ class MyInfoState extends State<MyInfo> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const BannerView(),
+          BannerView(isSign: false,),
           BookView(
             title: '已下载',
             data: const [

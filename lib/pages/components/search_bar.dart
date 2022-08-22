@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:kreader/pages/constants.dart';
 
 class SearchBar extends StatefulWidget {
-  SearchBar(
+  const SearchBar(
       {Key? key,
       required this.hintLabel,
       required this.onTap,
       required this.searchWord})
       : super(key: key);
-  String searchWord;
-  String hintLabel;
-  Function onTap;
+  final String searchWord;
+  final String hintLabel;
+  final Function onTap;
 
   @override
   State<StatefulWidget> createState() {
