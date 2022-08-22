@@ -24,37 +24,50 @@ class SearchResultView extends StatelessWidget {
       onTap: () {
         onTap(index);
       },
-      child: SizedBox(
-        width: size.width,
-        height: size.height / 8,
-        child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2,horizontal: 0),
-            child: FittedBox(
-              alignment: Alignment.topLeft,
-              fit: BoxFit.contain,
-              child: Row(
-                children: <Widget>[
-                  Image.network(
+      child:Padding(
+        padding: EdgeInsets.all(10),
+        child: SizedBox(
+            width: size.width,
+            height: size.height / 8,
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  width: size.height / 8*0.75,
+                  height: size.height / 8,
+                  child: Image.network(
                     data[index].imageUrl,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(2),
+                ),
+
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           data[index].bookName,
                           style: const TextStyle(
-                            fontSize: 18.0,
+                            fontSize: 12.0,
                           ),
                         ),
+                        SizedBox(height: 10,),
+                        Text(
+                          data[index].author,
+                          style: const TextStyle(
+                            fontSize: 8.0,
+                          ),
+                        ),
+
                       ],
                     ),
-                  )
-                ],
-              ),
-            )),
-      ),
+                  ),
+                )
+
+              ],
+            ),),
+      )
     );
   }
 }

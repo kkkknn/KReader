@@ -27,7 +27,7 @@ class SearchPage extends StatelessWidget {
             isFinish: true,
             author: "彦馬ヒロユキ",
             imageUrl:
-            "assets/test/book.jpg",
+            "assets/icons/logo.png",
             likeCount: 286,
             searchCount: 12932,
             categories: ["短篇", "NTR", "強暴", "妹妹系"],
