@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kreader/http/dio_util.dart';
 import 'package:kreader/pages/home/classification/components/classify.dart';
 import 'package:kreader/pages/home/classification/components/classify_view.dart';
@@ -25,12 +26,11 @@ class ClassificationState extends State<Classification> {
               searchWord: '',
               hintLabel: "请输入要搜索的本子",
               onTap: (String str) {
-                debugPrint("您搜索的是$str");
-                //跳转页面
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return SearchPage(str); //跳转到编辑日志页面
-                }));
+                if(str.isNotEmpty){
+                  debugPrint("您搜索的是$str");
+                  //跳转页面
+                  context.go('/search/$str');
+                }
               },
             ),
             const Text(

@@ -14,31 +14,35 @@ class MyInfo extends StatefulWidget {
 class MyInfoState extends State<MyInfo> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          BannerView(isSign: false,),
-          BookView(
-            title: '已下载',
-            data: const [
-              Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
-              Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
-              Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
-              Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
-            ],
-            onTap: onTap,
-          ),
-          BookView(
-            title: '最近观看',
-            data: const [
-              Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
-              Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
-              Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
-              Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
-            ],
-            onTap: onTap,
-          ),
-        ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            BannerView(
+              isSign: false,
+            ),
+            BookView(
+              title: '已下载',
+              data: const [
+                Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
+                Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
+                Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
+                Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
+              ],
+              onTap: onTap,
+            ),
+            BookView(
+              title: '最近观看',
+              data: const [
+                Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
+                Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
+                Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
+                Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
+              ],
+              onTap: onTap,
+            ),
+          ],
+        ),
       ),
     );
   }

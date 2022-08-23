@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kreader/app.dart';
 import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/login/login_page.dart';
@@ -7,31 +8,55 @@ import 'package:kreader/pages/signup/signup_page.dart';
 import 'package:kreader/pages/welcome/welcome_page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget{
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return MaterialApp.router(
+      routeInformationProvider: _router.routeInformationProvider,
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
       title: 'flutter demo',
       theme: ThemeData(
         primarySwatch: Config.primarySwatchColor,
         scaffoldBackgroundColor: Config.primaryLightColor,
       ),
-      routes: {
-        '/':(BuildContext context)=>const WelcomePage(),
-        '/home':(BuildContext context)=>const App(),
-        '/login':(BuildContext context)=>const LoginPage(),
-        '/signup':(BuildContext context)=>const SignUpPage(),
-      },
+      debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
     );
   }
-  
+
+  final GoRouter _router = GoRouter(
+    routes: <GoRoute>[
+      GoRoute(
+          path: '/',
+          builder: (BuildContext context, GoRouterState state) =>
+              const WelcomePage()),
+      GoRoute(
+          path: '/home',
+          builder: (BuildContext context, GoRouterState state) => const App()),
+      GoRoute(
+          path: '/login',
+          builder: (BuildContext context, GoRouterState state) =>
+              const LoginPage()),
+      GoRoute(
+          path: '/signup',
+          builder: (BuildContext context, GoRouterState state) =>
+              const SignUpPage()),
+      GoRoute(
+        path: '/search/:searchWord',
+        builder: (BuildContext context, GoRouterState state) {
+          return SearchPage(
+            searchWord: state.params['searchWord']!,
+          );
+        },
+      ),
+    ],
+
+  );
 }

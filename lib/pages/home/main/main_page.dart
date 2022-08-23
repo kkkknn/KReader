@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreader/http/dio_util.dart';
 import 'package:kreader/pages/home/main/components/banner_view.dart';
 import 'package:kreader/pages/components/book.dart';
 import 'package:kreader/pages/home/main/components/recommend_view.dart';
@@ -8,9 +9,15 @@ class MainPage extends StatefulWidget {
 
   @override
   MainPageState createState() => MainPageState();
+
 }
 
 class MainPageState extends State<MainPage> {
+  //图书数组
+  List<Book> recommendBookGod=[];
+  List<Book> recommendBookDemon=[];
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,23 +46,13 @@ class MainPageState extends State<MainPage> {
             ),
             RecommendView(
               title: '本子神推荐',
-              data: const [
-                Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
-              ],
-              onTap: onTap,
+              data: recommendBookGod,
+              onTap: _onTapGod,
             ),
             RecommendView(
               title: '本子魔推荐',
-              data: const [
-                Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
-              ],
-              onTap: onTap,
+              data: recommendBookDemon,
+              onTap: _onTapDemon,
             ),
           ],
         ),
@@ -63,7 +60,22 @@ class MainPageState extends State<MainPage> {
     );
   }
 
-  onTap(int index) {
-    debugPrint("点击了 " + index.toString() + "个");
+  _onTapGod(int index) {
+    debugPrint("神点击3了 $index个");
+  }
+
+  _onTapDemon(int index) {
+    debugPrint("魔点击3了 $index个");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('初始化了');
+    //开始请求获取神魔推荐
+    DioUtil dioUtil=DioUtil.getInstance();
+    var result = dioUtil.getRecommend();
+    //请求成功，开始填充数据
+
   }
 }

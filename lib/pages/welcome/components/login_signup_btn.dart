@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kreader/pages/constants.dart';
 
 
@@ -16,7 +17,7 @@ class LoginAndSignupBtn extends StatelessWidget {
           tag: "login_btn",
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/login');
+              context.go('/login');
             },
             style: ElevatedButton.styleFrom(
                 primary: Config.primaryColor,
@@ -34,7 +35,7 @@ class LoginAndSignupBtn extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 EasyLoading.showToast('注册 暂不开放');
-                //Navigator.pushNamed(context, '/signup');
+                //context.go('/signup');
               },
               style: ElevatedButton.styleFrom(
                   primary: Config.primaryColorButton,

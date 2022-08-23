@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DioUtil {
   final Dio _dio = Dio();
@@ -19,6 +20,7 @@ class DioUtil {
   static const String _base = "https://picaapi.picacomic.com/";
 
   DioUtil._internal() {
+
     _dio.options = BaseOptions(
       validateStatus: (_) => true,
       responseType:ResponseType.json,
@@ -57,19 +59,25 @@ class DioUtil {
     //json拼接
     User user = User(name, password);
     Map<String,dynamic> map =user.toJson();
-    debugPrint(user.toJson().toString());
     var api = "auth/sign-in";
     var url = _base + api;
 
-    Response response = await _post(
+    Response response = await _httpReq(
       url,
+      'POST',
       map,
     );
-    if(response.statusCode==200){
-      debugPrint(response.data.toString());
-      _dio.options.headers['authorization'] = response.data["data"]['token'];
-      return true;
+    if (response.statusCode == 200) {
+      if (response.data['message'] == 'success') {
+        var token=response.data['data']['token'];
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+        //写入dio
+        _dio.options.headers['authorization']=token;
+        return true;
+      }
     }
+
     return false;
   }
 
@@ -92,23 +100,57 @@ class DioUtil {
     return digest;
   }
 
-  // post 命令
-  Future<Response<dynamic>> _post(String url, Map<String,dynamic> map) async {
+  void setToken(String token) {
+    _dio.options.headers['authorization'] = token;
+  }
+
+  //获取神魔推荐
+  Future<Response> getRecommend() async{
+    var url='${_base}collections';
+    Response response = await _httpReq(
+      url,
+      'GET',
+      null,
+    );
+
+    if (response.statusCode == 200) {
+      if (response.data['message'] == 'success') {
+        var token=response.data['data']['token'];
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+        //写入dio
+        _dio.options.headers['authorization']=token;
+        return response;
+      }
+    }
+    return response;
+  }
+
+  Future<Response<dynamic>> _httpReq(String url,String method, Map<String,dynamic>? map) async {
     //时间戳添加
     var time = _currentTimeMillis();
     _dio.options.headers['time'] = time;
-    debugPrint(_dio.options.headers['time'].toString());
 
     //请求加密 HMAC-SHA256
     var str = '${url.replaceAll(_base, '')}$time${_nonce}POST$_apiKey';
     String lowStr = str.toLowerCase();
     _dio.options.headers['signature'] = _hexdigest(lowStr);
-    debugPrint(_dio.options.headers['signature'].toString());
 
+    if(method=='POST'||method=='post'){
+      return await _dio.post(
+        url,
+        data: map,
+      );
+    }
 
-    return await _dio.post(
-      url,
-      data: map,
-    );
+    if(method=='GET'||method=='get'){
+      return await _dio.get(
+        url,
+        queryParameters: map,
+      );
+    }
+
+    //没有指定请求类型，直接抛出异常
+    throw Error();
   }
 }

@@ -20,25 +20,25 @@ class LoginForm extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Form(
-      child: Column(
-        children: [
-          TextFormField(
-            controller: _nameController,
-            keyboardType: TextInputType.none,
-            textInputAction: TextInputAction.next,
-            cursorColor: Config.primaryColor,
-            onSaved: (email) {},
-            decoration: const InputDecoration(
-              hintText: "请输入账号",
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(5),
-                child: Icon(Icons.person),
+      child: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _nameController,
+              textInputAction: TextInputAction.done,
+              cursorColor: Config.primaryColor,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: "请输入账号",
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Icon(Icons.person),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: Config.defaultPadding),
-            child: TextFormField(
+            TextFormField(
               controller: _passwordController,
               textInputAction: TextInputAction.done,
               obscureText: true,
@@ -51,36 +51,36 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: Config.defaultPadding),
-          Hero(
-            tag: "login_btn",
-            child: ElevatedButton(
-              style:  ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 20.0),
-              ),
-              onPressed: (){
-                var name = _nameController.text;
-                var password = _passwordController.text;
-                if(name.isEmpty){
-                  //显示框验证失败
-                  EasyLoading.showError('用户名不能为空');
-                }else if(password.isEmpty){
-                  EasyLoading.showError('密码不能为空');
-                }else{
-                  press(_nameController.text,_passwordController.text);
-                }
-              },
-              child: Text(
-                "登录".toUpperCase(),
+            const SizedBox(height: Config.defaultPadding),
+            Hero(
+              tag: "login_btn",
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 150, vertical: 20.0),
+                ),
+                onPressed: () {
+                  var name = _nameController.text;
+                  var password = _passwordController.text;
+                  if (name.isEmpty) {
+                    //显示框验证失败
+                    EasyLoading.showError('用户名不能为空');
+                  } else if (password.isEmpty) {
+                    EasyLoading.showError('密码不能为空');
+                  } else {
+                    press(_nameController.text, _passwordController.text);
+                  }
+                },
+                child: Text(
+                  "登录".toUpperCase(),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: Config.defaultPadding),
-          AlreadyHaveAnAccountCheck(
-            press: () {
-              EasyLoading.showToast('注册 暂不开放');
-              /*Navigator.push(
+            const SizedBox(height: Config.defaultPadding),
+            AlreadyHaveAnAccountCheck(
+              press: () {
+                EasyLoading.showToast('注册 暂不开放');
+                /*Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
@@ -88,9 +88,10 @@ class LoginForm extends StatelessWidget {
                   },
                 ),
               );*/
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
