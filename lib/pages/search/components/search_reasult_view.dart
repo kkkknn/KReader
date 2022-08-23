@@ -20,29 +20,29 @@ class SearchResultView extends StatelessWidget {
 
   Widget _cellForRow(BuildContext context, int index) {
     final size = MediaQuery.of(context).size;
+    final List<String> categories = data[index].categories;
     return InkWell(
-      onTap: () {
-        onTap(index);
-      },
-      child:Padding(
-        padding: EdgeInsets.all(10),
-        child: SizedBox(
+        onTap: () {
+          onTap(index);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SizedBox(
             width: size.width,
             height: size.height / 8,
             child: Row(
               children: <Widget>[
                 SizedBox(
-                  width: size.height / 8*0.75,
+                  width: size.height / 8 * 0.75,
                   height: size.height / 8,
                   child: Image.network(
                     data[index].imageUrl,
                     fit: BoxFit.contain,
                   ),
                 ),
-
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -50,24 +50,49 @@ class SearchResultView extends StatelessWidget {
                           data[index].bookName,
                           style: const TextStyle(
                             fontSize: 12.0,
+                            color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 10,),
-                        Text(
-                          data[index].author,
-                          style: const TextStyle(
-                            fontSize: 8.0,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          child: Text(
+                            data[index].author,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 8.0,
+                            ),
                           ),
                         ),
-
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: categories.length,
+                            itemBuilder: (BuildContext context, int index2) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  categories[index2],
+                                  style: TextStyle(
+                                    color: Colors.pink,
+                                    fontSize: 10,
+                                  ),
+                                  strutStyle: StrutStyle(
+                                    forceStrutHeight: true,
+                                    leading: 0.5,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 )
-
               ],
-            ),),
-      )
-    );
+            ),
+          ),
+        ));
   }
 }

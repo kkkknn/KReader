@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:kreader/components/background.dart';
 import 'package:kreader/pages/responsive.dart';
