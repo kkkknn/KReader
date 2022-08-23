@@ -6,12 +6,16 @@ class RecommendView extends StatelessWidget {
   final List<Book> data;
   final Function onTap;
 
-  const RecommendView({Key? key, required this.title, required this.data, required this.onTap})
+  const RecommendView(
+      {Key? key, required this.title, required this.data, required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final size = MediaQuery.of(context).size;
+    return Container(
+      width: size.width,
+        child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -24,7 +28,7 @@ class RecommendView extends StatelessWidget {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.width/data.length/0.75,
+          height: MediaQuery.of(context).size.width / data.length / 0.75,
           child: ListView.builder(
             itemCount: data.length,
             scrollDirection: Axis.horizontal,
@@ -32,39 +36,42 @@ class RecommendView extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ));
   }
 
   Widget _cellForRow(BuildContext context, int index) {
-    final size =MediaQuery.of(context).size;
-    var width=size.width/data.length;
+    final size = MediaQuery.of(context).size;
+    var width = size.width / data.length;
     return InkWell(
-      onTap: (){
+      onTap: () {
         onTap(index);
       },
       child: SizedBox(
         width: width,
-        height: width/0.75,
+        height: width / 0.75,
         child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: Column(
-              children: <Widget>[
-                Image.network(data[index].imageUrl,fit: BoxFit.cover,),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  data[index].bookName,
-                  style: const TextStyle(fontSize: 18.0,),
-                ),
-              ],
-            ),
-          )
-        ),
+            padding: const EdgeInsets.all(5),
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Column(
+                children: <Widget>[
+                  Image.network(
+                    data[index].imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    data[index].bookName,
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }
-
 }

@@ -15,7 +15,12 @@ class WelcomePage extends StatelessWidget{
     //判断是否token,有的话直接进到主页
     var result = _autoLogin();
     result.then((value){
-      context.go('/home');
+      if(value){
+
+        context.go('/home');
+      }else{
+
+      }
     },onError: (e){
 
     });
@@ -56,6 +61,7 @@ class WelcomePage extends StatelessWidget{
     if(token==null||token.isEmpty){
       return false;
     }else {
+      debugPrint("share 读取的token"+token);
       DioUtil util =DioUtil.getInstance();
       util.setToken(token);
       return true;

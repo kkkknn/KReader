@@ -74,6 +74,7 @@ class DioUtil {
         await prefs.setString('token', token);
         //写入dio
         _dio.options.headers['authorization']=token;
+        debugPrint('写入成功');
         return true;
       }
     }
@@ -107,19 +108,17 @@ class DioUtil {
   //获取神魔推荐
   Future<Response> getRecommend() async{
     var url='${_base}collections';
+    debugPrint('eweee ：asads');
+    debugPrint('eweee ：'+_dio.options.headers['authorization'].toString());
     Response response = await _httpReq(
       url,
       'GET',
       null,
     );
 
+    debugPrint('获取到数据了 数据是：'+response.data);
     if (response.statusCode == 200) {
       if (response.data['message'] == 'success') {
-        var token=response.data['data']['token'];
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', token);
-        //写入dio
-        _dio.options.headers['authorization']=token;
         return response;
       }
     }
@@ -132,15 +131,17 @@ class DioUtil {
     _dio.options.headers['time'] = time;
 
     //请求加密 HMAC-SHA256
-    var str = '${url.replaceAll(_base, '')}$time${_nonce}POST$_apiKey';
+    var str = '${url.replaceAll(_base, '')}$time${_nonce}${method}$_apiKey';
     String lowStr = str.toLowerCase();
     _dio.options.headers['signature'] = _hexdigest(lowStr);
 
+    debugPrint('请求路径'+url);
     if(method=='POST'||method=='post'){
       return await _dio.post(
         url,
         data: map,
       );
+
     }
 
     if(method=='GET'||method=='get'){
@@ -148,8 +149,9 @@ class DioUtil {
         url,
         queryParameters: map,
       );
-    }
 
+    }
+    debugPrint("日了错误");
     //没有指定请求类型，直接抛出异常
     throw Error();
   }

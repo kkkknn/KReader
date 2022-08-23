@@ -9,17 +9,16 @@ class MainPage extends StatefulWidget {
 
   @override
   MainPageState createState() => MainPageState();
-
 }
 
 class MainPageState extends State<MainPage> {
   //图书数组
-  List<Book> recommendBookGod=[];
-  List<Book> recommendBookDemon=[];
-
+  List<Book> recommendBookGod = [];
+  List<Book> recommendBookDemon = [];
 
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -44,16 +43,12 @@ class MainPageState extends State<MainPage> {
                 ),
               ],
             ),
-            RecommendView(
-              title: '本子神推荐',
-              data: recommendBookGod,
-              onTap: _onTapGod,
-            ),
-            RecommendView(
+
+            /*RecommendView(
               title: '本子魔推荐',
               data: recommendBookDemon,
               onTap: _onTapDemon,
-            ),
+            ),*/
           ],
         ),
       ),
@@ -73,9 +68,13 @@ class MainPageState extends State<MainPage> {
     super.initState();
     debugPrint('初始化了');
     //开始请求获取神魔推荐
-    DioUtil dioUtil=DioUtil.getInstance();
+    DioUtil dioUtil = DioUtil.getInstance();
     var result = dioUtil.getRecommend();
     //请求成功，开始填充数据
-
+    result.then((value) {
+      //数据解析填充
+    }, onError: (e) {
+      debugPrint('网络出错'+e.toString());
+    });
   }
 }
