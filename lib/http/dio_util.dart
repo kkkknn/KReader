@@ -117,6 +117,18 @@ class DioUtil {
     return RecommendBookResult.fromJson(response.data);
   }
 
+  //获取图书详情
+  void getBookInfo(String id)async{
+    var url='${_base}comics${id}';
+    Response response = await _httpReq(
+      url,
+      'GET',
+      null,
+    );
+    url = f"{base}comics/{book_id}"
+    return null;
+  }
+
   Future<Response<dynamic>> _httpReq(String url,String method, Map<String,dynamic>? map) async {
     //时间戳添加
     var time = _currentTimeMillis();

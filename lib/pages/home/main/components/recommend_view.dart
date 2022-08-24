@@ -41,10 +41,11 @@ class RecommendViewState extends State<RecommendView> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(
+              Container(
                 width: size.width,
-                height: size.width * 0.5,
+                height: size.width/2,
                 child: ListView.builder(
+                  itemExtent: size.width/4,
                   itemCount: recommendBookGod.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
@@ -65,6 +66,7 @@ class RecommendViewState extends State<RecommendView> {
                                 ),
                                 Text(
                                   recommendBookGod[index].bookName,
+                                  style: TextStyle(fontSize: 12,),
                                 ),
                               ],
                             )),
@@ -80,10 +82,11 @@ class RecommendViewState extends State<RecommendView> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(
+              Container(
                 width: size.width,
-                height: size.width * 0.5,
+                height: size.width/2,
                 child: ListView.builder(
+                  itemExtent: size.width/4,
                   itemCount: recommendBookDemon.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
@@ -104,6 +107,9 @@ class RecommendViewState extends State<RecommendView> {
                                 ),
                                 Text(
                                   recommendBookDemon[index].bookName,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ],
                             )),
