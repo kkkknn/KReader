@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:kreader/http/results/recommend_book_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioUtil {
@@ -106,23 +107,14 @@ class DioUtil {
   }
 
   //获取神魔推荐
-  Future<Response> getRecommend() async{
+  Future<RecommendBookResult?> getRecommend() async{
     var url='${_base}collections';
-    debugPrint('eweee ：asads');
-    debugPrint('eweee ：'+_dio.options.headers['authorization'].toString());
     Response response = await _httpReq(
       url,
       'GET',
       null,
     );
-
-    debugPrint('获取到数据了 数据是：'+response.data);
-    if (response.statusCode == 200) {
-      if (response.data['message'] == 'success') {
-        return response;
-      }
-    }
-    return response;
+    return RecommendBookResult.fromJson(response.data);
   }
 
   Future<Response<dynamic>> _httpReq(String url,String method, Map<String,dynamic>? map) async {
@@ -131,20 +123,20 @@ class DioUtil {
     _dio.options.headers['time'] = time;
 
     //请求加密 HMAC-SHA256
-    var str = '${url.replaceAll(_base, '')}$time${_nonce}${method}$_apiKey';
+    var str = '${url.replaceAll(_base, '')}$time$_nonce$method$_apiKey';
     String lowStr = str.toLowerCase();
     _dio.options.headers['signature'] = _hexdigest(lowStr);
 
-    debugPrint('请求路径'+url);
     if(method=='POST'||method=='post'){
+      debugPrint('POST 请求路径$url');
       return await _dio.post(
         url,
         data: map,
       );
-
     }
 
     if(method=='GET'||method=='get'){
+      debugPrint('GET 请求路径$url');
       return await _dio.get(
         url,
         queryParameters: map,

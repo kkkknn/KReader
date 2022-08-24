@@ -29,7 +29,7 @@ class ClassificationState extends State<Classification> {
                 if(str.isNotEmpty){
                   debugPrint("您搜索的是$str");
                   //跳转页面
-                  context.go('/search/$str');
+                  context.push('/search/$str');
                 }
               },
             ),
@@ -47,6 +47,10 @@ class ClassificationState extends State<Classification> {
                     '分类12',
                     '分类13',
                     '分类41',
+                    '分类11231',
+                    '分类1123123',
+                    '分类11231',
+                    '分类1123123',
                     '分类11231',
                     '分类1123123',
                   ],

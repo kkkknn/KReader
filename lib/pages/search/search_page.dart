@@ -12,10 +12,13 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: SingleChildScrollView(
-        child:Scaffold(
-          body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child:Container(
+          width: size.width,
+          height: size.height,
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SearchBar(
               searchWord:searchWord,
               hintLabel: "请输入要搜索的本子",

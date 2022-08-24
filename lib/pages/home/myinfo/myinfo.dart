@@ -23,21 +23,22 @@ class MyInfoState extends State<MyInfo> {
             ),
             BookView(
               title: '已下载',
-              data: const [
-                Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
+              data:  [
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
               ],
               onTap: onTap,
             ),
             BookView(
               title: '最近观看',
-              data: const [
-                Book(bookName: '图书1', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书2', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书3', imageUrl: 'assets/test/book.jpg'),
-                Book(bookName: '图书4', imageUrl: 'assets/test/book.jpg'),
+              data: [
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
+                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
               ],
               onTap: onTap,
             ),

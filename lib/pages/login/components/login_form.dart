@@ -29,7 +29,6 @@ class LoginForm extends StatelessWidget {
               controller: _nameController,
               textInputAction: TextInputAction.done,
               cursorColor: Config.primaryColor,
-              obscureText: true,
               decoration: const InputDecoration(
                 hintText: "请输入账号",
                 prefixIcon: Padding(

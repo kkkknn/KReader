@@ -1,10 +1,8 @@
 class Book{
-  final String bookName;
-  final String imageUrl;
+  String bookName='';
+  String id='';
+  String imageUrl='';
+  String author='';
 
-  const Book({
-    required this.bookName,
-    required this.imageUrl
-  });
-
+  Book({required this.bookName, required this.id, required this.imageUrl, required this.author, });
 }

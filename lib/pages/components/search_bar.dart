@@ -54,7 +54,7 @@ class SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 30,
+      height: 40,
       child: Row(
         children: [
           Expanded(

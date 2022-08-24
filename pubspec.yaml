@@ -66,6 +66,9 @@ dependencies:
   #go_router: ^4.2.8
   go_router: ^4.2.8
 
+  #proste_indexed_stack: 底部页面缓存
+  proste_indexed_stack: ^0.2.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

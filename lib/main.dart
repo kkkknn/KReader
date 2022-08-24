@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kreader/app.dart';
+import 'package:kreader/pages/book_info/book_info_page.dart';
 import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/login/login_page.dart';
 import 'package:kreader/pages/search/search_page.dart';
@@ -53,6 +54,14 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) {
           return SearchPage(
             searchWord: state.params['searchWord']!,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/bookInfo/:id',
+        builder: (BuildContext context, GoRouterState state) {
+          return BookInfoPage(
+            id: state.params['id']!,
           );
         },
       ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kreader/http/dio_util.dart';
 import 'package:kreader/pages/home/main/components/banner_view.dart';
-import 'package:kreader/pages/components/book.dart';
 import 'package:kreader/pages/home/main/components/recommend_view.dart';
 
 class MainPage extends StatefulWidget {
@@ -12,13 +10,8 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  //图书数组
-  List<Book> recommendBookGod = [];
-  List<Book> recommendBookDemon = [];
-
   @override
   Widget build(BuildContext context) {
-    Size size=MediaQuery.of(context).size;
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -43,38 +36,10 @@ class MainPageState extends State<MainPage> {
                 ),
               ],
             ),
-
-            /*RecommendView(
-              title: '本子魔推荐',
-              data: recommendBookDemon,
-              onTap: _onTapDemon,
-            ),*/
+            const RecommendView(),
           ],
         ),
       ),
     );
-  }
-
-  _onTapGod(int index) {
-    debugPrint("神点击3了 $index个");
-  }
-
-  _onTapDemon(int index) {
-    debugPrint("魔点击3了 $index个");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    debugPrint('初始化了');
-    //开始请求获取神魔推荐
-    DioUtil dioUtil = DioUtil.getInstance();
-    var result = dioUtil.getRecommend();
-    //请求成功，开始填充数据
-    result.then((value) {
-      //数据解析填充
-    }, onError: (e) {
-      debugPrint('网络出错'+e.toString());
-    });
   }
 }
