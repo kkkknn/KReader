@@ -4,7 +4,7 @@ import 'package:kreader/http/dio_util.dart';
 import 'package:kreader/pages/home/classification/components/classify.dart';
 import 'package:kreader/pages/home/classification/components/classify_view.dart';
 import 'package:kreader/pages/home/classification/components/key_view.dart';
-import 'package:kreader/pages/components/search_bar.dart';
+import 'package:kreader/pages/public_components/search_bar.dart';
 import 'package:kreader/pages/search/search_page.dart';
 
 class Classification extends StatefulWidget {

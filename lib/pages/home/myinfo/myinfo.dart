@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kreader/pages/public_components/book.dart';
 
-import '../../components/book.dart';
 import 'components/banner_view.dart';
 import 'components/book_view.dart';
 

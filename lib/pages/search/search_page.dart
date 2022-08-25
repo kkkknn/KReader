@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kreader/http/results/book_result.dart';
+import 'package:kreader/pages/public_components/search_bar.dart';
 import 'package:kreader/pages/search/components/search_book_result.dart';
 import 'package:kreader/pages/search/components/search_reasult_view.dart';
 
-import '../components/search_bar.dart';
 
 class SearchPage extends StatelessWidget {
   String searchWord;

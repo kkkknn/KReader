@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:kreader/http/results/book_episodes_result.dart';
+import 'package:kreader/http/results/book_result.dart';
+import 'package:kreader/http/results/episodes_pictures_result.dart';
 import 'package:kreader/http/results/recommend_book_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -118,15 +121,37 @@ class DioUtil {
   }
 
   //获取图书详情
-  void getBookInfo(String id)async{
-    var url='${_base}comics${id}';
+  Future<BookResult> getBookInfo(String id) async{
+    var url='${_base}comics/$id';
     Response response = await _httpReq(
       url,
       'GET',
       null,
     );
-    url = f"{base}comics/{book_id}"
-    return null;
+    return BookResult.fromJson(response.data);
+  }
+
+  //获取漫画的分话
+  Future<BookEpisodesResult> getBookEpisodes(String id,int page) async{
+    var url='${_base}comics/$id/eps?page=$page';
+    Response response = await _httpReq(
+      url,
+      'GET',
+      null,
+    );
+    return BookEpisodesResult.fromJson(response.data);
+  }
+
+  //获取漫画图片
+  Future<EpisodesPicturesResult> getEpisodePictures(String bookId,String episodeId,int page) async{
+    var url='${_base}comics/$bookId/order/$episodeId/pages?page=$page';
+    Response response = await _httpReq(
+      url,
+      'GET',
+      null,
+    );
+
+    return EpisodesPicturesResult.fromJson(response.data);
   }
 
   Future<Response<dynamic>> _httpReq(String url,String method, Map<String,dynamic>? map) async {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kreader/http/results/recommend_book_result.dart';
-import 'package:kreader/pages/components/book.dart';
+import 'package:kreader/pages/public_components/book.dart';
 
 import '../../../../http/dio_util.dart';
 
@@ -14,8 +14,8 @@ class RecommendView extends StatefulWidget {
 }
 
 class RecommendViewState extends State<RecommendView> {
-  List<Book> recommendBookGod = [];
-  List<Book> recommendBookDemon = [];
+  List<Book> recommendBookGod = [].cast<Book>();
+  List<Book> recommendBookDemon = [].cast<Book>();
   String god = "";
   String demon = '';
 
@@ -124,7 +124,6 @@ class RecommendViewState extends State<RecommendView> {
 
   //数据解析
   void _analysisData(RecommendBookResult? value) {
-    final size = MediaQuery.of(context).size;
     if (value == null) {
       return;
     }

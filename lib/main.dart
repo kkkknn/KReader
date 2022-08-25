@@ -9,6 +9,8 @@ import 'package:kreader/pages/signup/signup_page.dart';
 import 'package:kreader/pages/welcome/welcome_page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import 'pages/browse/browsePage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -62,6 +64,17 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) {
           return BookInfoPage(
             id: state.params['id']!,
+          );
+        },
+      ),
+      GoRoute(
+        name: 'browseView',
+        path: '/browseView/:bookId',
+        builder: (BuildContext context, GoRouterState state) {
+          return BrowsePage(
+            bookId: state.params['bookId']!,
+            page: state.params['page']!,
+            browCount: state.params['browCount']!,
           );
         },
       ),

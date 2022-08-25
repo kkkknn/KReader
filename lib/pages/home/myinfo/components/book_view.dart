@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kreader/pages/components/book.dart';
+import 'package:kreader/pages/public_components/book.dart';
 
 class BookView extends StatelessWidget {
   final String title;
