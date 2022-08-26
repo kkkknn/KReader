@@ -57,7 +57,13 @@ class Categories extends Object {
   @JsonKey(name: 'link')
   String link;
 
-  Categories(this.title,this.thumb,this.isWeb,this.active,this.link,);
+  @JsonKey(name: '_id')
+  String id;
+
+  @JsonKey(name: 'description')
+  String description;
+
+  Categories(this.title,this.thumb,this.isWeb,this.active,this.link,this.id,this.description);
 
   factory Categories.fromJson(Map<String, dynamic> srcJson) => _$CategoriesFromJson(srcJson);
 

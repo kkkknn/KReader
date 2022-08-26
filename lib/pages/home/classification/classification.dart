@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kreader/components/background.dart';
 import 'package:kreader/http/dio_util.dart';
+import 'package:kreader/http/results/category_result.dart';
 import 'package:kreader/pages/home/classification/components/classify.dart';
 import 'package:kreader/pages/home/classification/components/classify_view.dart';
 import 'package:kreader/pages/home/classification/components/key_view.dart';
@@ -16,11 +18,14 @@ class Classification extends StatefulWidget {
 }
 
 class ClassificationState extends State<Classification> {
+  List<Classify> classifies=[];
+  List<String> hotKeyWords=[];
+
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return SafeArea(
-      child: Container(
+      child: SizedBox(
         width: size.width,
         height: size.height,
         child:SingleChildScrollView(
@@ -43,32 +48,7 @@ class ClassificationState extends State<Classification> {
                 textAlign: TextAlign.left,
               ),
               KeyView(
-                list: const [
-                  'abandonas按时',
-                  '分类1',
-                  '分类12',
-                  '分类13',
-                  '分类41',
-                  '分类11231',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类1123123',
-                  '分类11231',
-                  '分类1123123',
-                  '分类11231',
-                  '分类1123123',
-                ],
+                list: hotKeyWords,
                 onPress: (String key) {
                   debugPrint('您点击的是' + key);
                 },
@@ -83,61 +63,58 @@ class ClassificationState extends State<Classification> {
                     onPress: (String key) {
                       debugPrint('您点击的是' + key);
                     },
-                    datas: [
-                      Classify(
-                        '分类1',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类2',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类3',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                      Classify(
-                        '分类4',
-                        'assets/test/author.jpg',
-                      ),
-                    ],
+                    data: classifies,
                   )),
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //获取主目录
+    _getCategories();
+  }
+
+  void _getCategories() {
+    //开始请求获取神魔推荐
+    DioUtil dioUtil = DioUtil.getInstance();
+    var result = dioUtil.getCategories();
+    //请求成功，开始填充数据
+    result.then((value) {
+      //数据刷新
+      setState(() {
+        debugPrint('获取到目录数据了');
+        _analysisCategoriesData(value);
+      });
+    }, onError: (e) {
+      EasyLoading.showError('网络出错');
+      debugPrint('网络出错$e');
+    });
+  }
+
+  //解析目录数据
+  void _analysisCategoriesData(CategoryResult value) {
+    CategoryResult categoryResult=value;
+
+    if(categoryResult.code==200&&categoryResult.message=='success'){
+      List<Categories> data=categoryResult.data.categories;
+      for(var item in data){
+        var id=item.id;
+        var name=item.title;
+        var imageUrl;
+        if(item.id!=null||item.title=='被褐懷玉'){
+          imageUrl="${item.thumb.fileServer}/static/${item.thumb.path}";
+        }else{
+          imageUrl="${item.thumb.fileServer}${item.thumb.path}";
+        }
+        Classify classify=Classify(id,name,imageUrl);
+        classifies.add(classify);
+      }
+    }
+
   }
 }

@@ -3,34 +3,36 @@ import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/home/classification/components/classify.dart';
 
 class ClassifyView extends StatelessWidget {
-  List<Classify> datas = [];
-  final Function onPress;
+  List<Classify> data = [];
+  Function onPress;
 
-  ClassifyView({Key? key, required this.datas, required this.onPress})
+  ClassifyView({Key? key, required this.data, required this.onPress})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return Wrap(
       direction: Axis.horizontal,
       spacing: 10,
       runSpacing: 10,
       alignment: WrapAlignment.center,
-      children: datas
+      children: data
           .map(
             (e) => InkWell(
               onTap: () => onTap(e.name),
               child: Container(
-                  width: 150,
-                  height: 180,
+                  width: size.width/4,
+                  height: size.width/4+30,
                   padding: EdgeInsets.zero,
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: Column(
                       children: [
                         Container(
-                          width: 150,
-                          height: 150,
+                          alignment: Alignment.center,
+                          width: size.width/4,
+                          height: size.width/4,
                           //超出部分，可裁剪
                           clipBehavior: Clip.hardEdge,
                           decoration: BoxDecoration(
@@ -39,6 +41,9 @@ class ClassifyView extends StatelessWidget {
                           child: Image.network(
                             e.imageUrl,
                             fit: BoxFit.cover,
+                            errorBuilder:(context,error,stackTrace){
+                              return Image.asset('assets/images/default/author.jpg');
+                            },
                           ),
                         ),
                         Text(

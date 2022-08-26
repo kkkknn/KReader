@@ -36,6 +36,8 @@ Categories _$CategoriesFromJson(Map<String, dynamic> json) => Categories(
       json['isWeb'] as bool,
       json['active'] as bool,
       json['link'] as String,
+      json['_id'] as String,
+      json['description'] as String,
     );
 
 Map<String, dynamic> _$CategoriesToJson(Categories instance) =>
@@ -45,6 +47,8 @@ Map<String, dynamic> _$CategoriesToJson(Categories instance) =>
       'isWeb': instance.isWeb,
       'active': instance.active,
       'link': instance.link,
+      '_id': instance.id,
+      'description': instance.description,
     };
 
 Thumb _$ThumbFromJson(Map<String, dynamic> json) => Thumb(
