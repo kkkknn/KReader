@@ -31,13 +31,13 @@ class EpisodesViewState extends State<EpisodesView> {
       alignment: WrapAlignment.start,
       children: List.generate(episodes.length, (index) {
         return GestureDetector(
-          onTap: () => (index2) {
+          onTap: () {
             final Map<String, String> newQueries;
             newQueries = <String, String>{
               'page': page.toString(),
-              'browCount': index2.toString(),
+              'episodeCount': (index+1).toString(),
             };
-            debugPrint('你点击的是${episodes[index2].name}');
+            debugPrint('你点击的是${episodes[index].name}');
             context.pushNamed('browseView',
                 params: <String, String>{'bookId': super.widget.bookId},
                 queryParams: newQueries);

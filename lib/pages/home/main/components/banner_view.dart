@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper_plus/flutter_swiper_plus.dart';
+import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
 class BannerView extends StatelessWidget {
   // 声明一个list，存放image Widget
-  final List<Widget> imageList;
+  final List<String> imageList;
 
   const BannerView({
     Key? key,
@@ -18,17 +19,10 @@ class BannerView extends StatelessWidget {
       width: size.width,
       height: size.width * 0.56,
       child: Swiper(
-        itemCount: 4,
         itemBuilder: _swiperBuilder,
-        pagination: const SwiperPagination(
-            alignment: Alignment.bottomRight,
-            margin: EdgeInsets.fromLTRB(0, 0, 20, 10),
-            builder: DotSwiperPaginationBuilder(
-                color: Colors.black54, activeColor: Colors.white)),
-        controller: SwiperController(),
-        scrollDirection: Axis.horizontal,
-        autoplay: true,
-        onTap: (index) => print('点击了第$index'),
+        itemCount: imageList.length,
+        pagination: const SwiperPagination(),
+        control: const SwiperControl(),
       ),
     );
   }
@@ -36,7 +30,14 @@ class BannerView extends StatelessWidget {
   Widget _swiperBuilder(BuildContext context, int index) {
     return FittedBox(
       fit: BoxFit.contain,
-      child: (imageList[index]),
+      child:
+      CachedNetworkImage(
+        imageUrl: imageList[index],
+        fit: BoxFit.fill,
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            CircularProgressIndicator(value: downloadProgress.progress),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
     );
   }
 }

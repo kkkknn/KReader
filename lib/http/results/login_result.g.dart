@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_result.dart';
+part of 'login_result.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserResult _$UserResultFromJson(Map<String, dynamic> json) => UserResult(
+LoginResult _$LoginResultFromJson(Map<String, dynamic> json) => LoginResult(
       json['code'] as int,
       json['message'] as String,
       Data.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$UserResultToJson(UserResult instance) =>
+Map<String, dynamic> _$LoginResultToJson(LoginResult instance) =>
     <String, dynamic>{
       'code': instance.code,
       'message': instance.message,

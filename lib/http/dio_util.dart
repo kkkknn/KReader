@@ -1,16 +1,16 @@
-import 'dart:io';
 
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:kreader/http/request/user.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
 import 'package:kreader/http/results/book_episodes_result.dart';
 import 'package:kreader/http/results/book_result.dart';
+import 'package:kreader/http/results/category_result.dart';
 import 'package:kreader/http/results/episodes_pictures_result.dart';
+import 'package:kreader/http/results/key_words_result.dart';
 import 'package:kreader/http/results/recommend_book_result.dart';
+import 'package:kreader/http/results/user_info_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioUtil {
@@ -22,6 +22,8 @@ class DioUtil {
   static const String _secretKey =
       r"~d}$Q7$eIni=V)9\RK/P.RM4;9[7|@/CA}b~OW!3?EV`:<>M7pddUBL5n|0/*Cn";
   static const String _base = "https://picaapi.picacomic.com/";
+  //static const String _base = "http://68.183.234.72/";
+  //static const String _base = "http://206.189.95.169/";
 
   DioUtil._internal() {
 
@@ -61,8 +63,11 @@ class DioUtil {
 
   Future<bool> login(String name, String password) async {
     //json拼接
-    User user = User(name, password);
-    Map<String,dynamic> map =user.toJson();
+    final Map<String,dynamic> map = <String, dynamic>{
+      'email':name,
+      'password':password,
+    };
+
     var api = "auth/sign-in";
     var url = _base + api;
 
@@ -143,16 +148,58 @@ class DioUtil {
   }
 
   //获取漫画图片
-  Future<EpisodesPicturesResult> getEpisodePictures(String bookId,String episodeId,int page) async{
-    var url='${_base}comics/$bookId/order/$episodeId/pages?page=$page';
+  Future<EpisodesPicturesResult> getEpisodePictures(String bookId,String episodeCount,int page) async{
+    var url='${_base}comics/$bookId/order/$episodeCount/pages?page=$page';
     Response response = await _httpReq(
       url,
       'GET',
       null,
     );
-
     return EpisodesPicturesResult.fromJson(response.data);
   }
+
+  //获取账户个人信息
+  Future<UserInfoResult> getUserInfo() async{
+    var url='${_base}users/profile';
+    Response response = await _httpReq(
+      url,
+      'GET',
+      null,
+    );
+    debugPrint(response.data.toString());
+    return UserInfoResult.fromJson(response.data);
+  }
+
+  //获取所有分类
+  Future<CategoryResult> getCategories() async{
+    var url='${_base}categories';
+    Response response = await _httpReq(
+      url,
+      'GET',
+      null,
+    );
+    return CategoryResult.fromJson(response.data);
+  }
+
+  //获取热搜关键词
+  Future<KeyWordsResult> getHotKeyWords() async{
+    var url='${_base}keywords';
+    Response response = await _httpReq(
+      url,
+      'GET',
+      null,
+    );
+    return KeyWordsResult.fromJson(response.data);
+  }
+
+  //搜索
+
+  //喜欢漫画
+
+  //收藏漫画
+
+  //修改自我介绍
+
 
   Future<Response<dynamic>> _httpReq(String url,String method, Map<String,dynamic>? map) async {
     //时间戳添加
@@ -180,7 +227,6 @@ class DioUtil {
       );
 
     }
-    debugPrint("日了错误");
     //没有指定请求类型，直接抛出异常
     throw Error();
   }

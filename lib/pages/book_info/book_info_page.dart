@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kreader/components/background.dart';
 import 'package:kreader/http/results/book_result.dart';
 import 'package:kreader/pages/book_info/components/episodes_view.dart';
 import 'package:like_button/like_button.dart';
@@ -29,195 +31,195 @@ class BookInfoPageState extends State<BookInfoPage> {
     var width = size.width;
     var height = size.height;
     return SafeArea(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 3,
-                    height: width / 3 * 1.75,
-                    child:
-                    Image.network(
+      child: Container(
+        width: width,
+        height: height,
+        color: Colors.white,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
                       width: width / 3,
                       height: width / 3 * 1.75,
-                      bookInfo.bookImageUrl,
-                      fit: BoxFit.contain,
-                      errorBuilder: (BuildContext context,Object obj,StackTrace? stack)=>Image.asset(
-                        "assets/test/book.jpg",
+                      child:
+                      CachedNetworkImage(
+                        width: width / 3,
+                        height: width / 3 * 1.75,
+                        fit: BoxFit.contain,
+                        imageUrl: bookInfo.bookImageUrl,
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text(
-                            bookInfo.bookName,
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.pink),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Text(
+                              bookInfo.bookName,
+                              style: const TextStyle(
+                                  fontSize: 16, color: Colors.pink),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 10),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: width / 15,
-                                height: width / 15,
-                                child: ClipOval(
-                                  child: Image.network(
-                                    width: width / 15,
-                                    height: width / 15,
-                                    bookInfo.authorImageUrl,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (BuildContext context,Object obj,StackTrace? stack)=>Image.asset(
-                                      "assets/test/book.jpg",
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: width / 15,
+                                  height: width / 15,
+                                  child: ClipOval(
+                                    child: CachedNetworkImage(
+                                      width: width / 15,
+                                      height: width / 15,
+                                      imageUrl:bookInfo.authorImageUrl,
+                                      fit: BoxFit.contain,
+                                      errorWidget: (context, url, error) => const Icon(Icons.error),
                                     ),
                                   ),
                                 ),
-                              ),
-
-                              const SizedBox(width: 5),
-                              Text(bookInfo.author),
-                            ],
+                                const SizedBox(width: 5),
+                                Text(bookInfo.author),
+                              ],
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 20),
-                          child: Text(
-                            '上传时间: ${bookInfo.createTime}',
-                            style: const TextStyle(
-                                fontSize: 10, color: Colors.grey),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 20),
+                            child: Text(
+                              '上传时间: ${bookInfo.createTime}',
+                              style: const TextStyle(
+                                  fontSize: 10, color: Colors.grey),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 20),
-                          child: Text(
-                            '最近更新: ${bookInfo.updateTime}',
-                            style: const TextStyle(
-                                fontSize: 10, color: Colors.grey),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 20),
+                            child: Text(
+                              '最近更新: ${bookInfo.updateTime}',
+                              style: const TextStyle(
+                                  fontSize: 10, color: Colors.grey),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: LikeButton(
+                                    size: buttonSize,
+                                    circleColor: const CircleColor(
+                                        start: Color(0xff00ddff),
+                                        end: Color(0xff0099cc)),
+                                    bubblesColor: const BubblesColor(
+                                      dotPrimaryColor: Color(0xff33b5e5),
+                                      dotSecondaryColor: Color(0xff0099cc),
+                                    ),
+                                    isLiked: bookInfo.isLiked,
+                                    likeBuilder: (bool isLiked) {
+                                      return Icon(
+                                        Icons.favorite,
+                                        color: isLiked
+                                            ? Colors.deepPurpleAccent
+                                            : Colors.grey,
+                                        size: buttonSize,
+                                      );
+                                    },
+                                    likeCount: bookInfo.likeCount,
+                                    countBuilder:
+                                        (int? count, bool isLiked, String text) {
+                                      var color = isLiked
+                                          ? Colors.deepPurpleAccent
+                                          : Colors.grey;
+                                      return Text(
+                                        text,
+                                        style: TextStyle(color: color),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: LikeButton(
+                                    size: buttonSize,
+                                    circleColor: const CircleColor(
+                                        start: Color(0xff00ddff),
+                                        end: Color(0xff0099cc)),
+                                    bubblesColor: const BubblesColor(
+                                      dotPrimaryColor: Color(0xff33b5e5),
+                                      dotSecondaryColor: Color(0xff0099cc),
+                                    ),
+                                    isLiked: bookInfo.isFavourite,
+                                    likeBuilder: (bool isLiked) {
+                                      return Icon(
+                                        Icons.star,
+                                        color: isLiked
+                                            ? Colors.deepPurpleAccent
+                                            : Colors.grey,
+                                        size: buttonSize,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: LikeButton(
-                                  size: buttonSize,
-                                  circleColor: const CircleColor(
-                                      start: Color(0xff00ddff),
-                                      end: Color(0xff0099cc)),
-                                  bubblesColor: const BubblesColor(
-                                    dotPrimaryColor: Color(0xff33b5e5),
-                                    dotSecondaryColor: Color(0xff0099cc),
-                                  ),
-                                  isLiked: bookInfo.isLiked,
-                                  likeBuilder: (bool isLiked) {
-                                    return Icon(
-                                      Icons.favorite,
-                                      color: isLiked
-                                          ? Colors.deepPurpleAccent
-                                          : Colors.grey,
-                                      size: buttonSize,
-                                    );
-                                  },
-                                  likeCount: bookInfo.likeCount,
-                                  countBuilder:
-                                      (int? count, bool isLiked, String text) {
-                                    var color = isLiked
-                                        ? Colors.deepPurpleAccent
-                                        : Colors.grey;
-                                    return Text(
-                                      text,
-                                      style: TextStyle(color: color),
-                                    );
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: LikeButton(
-                                  size: buttonSize,
-                                  circleColor: const CircleColor(
-                                      start: Color(0xff00ddff),
-                                      end: Color(0xff0099cc)),
-                                  bubblesColor: const BubblesColor(
-                                    dotPrimaryColor: Color(0xff33b5e5),
-                                    dotSecondaryColor: Color(0xff0099cc),
-                                  ),
-                                  isLiked: bookInfo.isFavourite,
-                                  likeBuilder: (bool isLiked) {
-                                    return Icon(
-                                      Icons.star,
-                                      color: isLiked
-                                          ? Colors.deepPurpleAccent
-                                          : Colors.grey,
-                                      size: buttonSize,
-                                    );
-                                  },
-                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 20),
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Config.primaryColor,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 40.0, vertical: 10.0),
+                                        elevation: 0),
+                                    onPressed: () {},
+                                    child: const Text(
+                                      '开始阅读',
+                                      style: TextStyle(),
+                                    )),
                               ),
                             ],
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 20),
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Config.primaryColor,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 40.0, vertical: 10.0),
-                                      elevation: 0),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    '开始阅读',
-                                    style: TextStyle(),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    '简介：',
-                    style: TextStyle(fontSize: 18, color: Colors.pink),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    child: Text(bookInfo.description),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '简介：',
+                      style: TextStyle(fontSize: 18, color: Colors.pink),
+                    ),
+                    Padding(
+                      padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      child: bookInfo.description==null?const Text('暂无简介'):Text(bookInfo.description),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            bookInfo.bookId.isEmpty?const Text('正在获取数据'):EpisodesView(bookId: bookInfo.bookId),
-          ],
+              bookInfo.bookId.isEmpty?const Text('正在获取数据'):EpisodesView(bookId: bookInfo.bookId),
+            ],
+          ),
         ),
       ),
     );

@@ -18,7 +18,7 @@ class KeyView extends StatelessWidget {
       children: list
           .map((e) => Ink(
                 decoration: BoxDecoration(
-                  color: Config.primaryLightColor,
+                  color: Config.primaryColor,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: InkWell(

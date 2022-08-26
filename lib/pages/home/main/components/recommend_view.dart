@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
@@ -43,14 +44,14 @@ class RecommendViewState extends State<RecommendView> {
               ),
               Container(
                 width: size.width,
-                height: size.width/2,
+                height: size.width / 2,
                 child: ListView.builder(
-                  itemExtent: size.width/4,
+                  itemExtent: size.width / 4,
                   itemCount: recommendBookGod.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
-                      onTap: ()=>_onTapGod(index),
+                      onTap: () => _onTapGod(index),
                       child: SizedBox(
                         width: width,
                         child: Padding(
@@ -59,14 +60,18 @@ class RecommendViewState extends State<RecommendView> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  child: Image.network(
-                                    recommendBookGod[index].imageUrl,
+                                  child: CachedNetworkImage(
+                                    imageUrl: recommendBookGod[index].imageUrl,
                                     fit: BoxFit.contain,
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
                                   ),
                                 ),
                                 Text(
                                   recommendBookGod[index].bookName,
-                                  style: TextStyle(fontSize: 12,),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ],
                             )),
@@ -82,16 +87,16 @@ class RecommendViewState extends State<RecommendView> {
                   fontSize: 20,
                 ),
               ),
-              Container(
+              SizedBox(
                 width: size.width,
-                height: size.width/2,
+                height: size.width / 2,
                 child: ListView.builder(
-                  itemExtent: size.width/4,
+                  itemExtent: size.width / 4,
                   itemCount: recommendBookDemon.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
-                      onTap: ()=>_onTapDemon(index),
+                      onTap: () => _onTapDemon(index),
                       child: SizedBox(
                         width: width,
                         child: Padding(
@@ -100,14 +105,17 @@ class RecommendViewState extends State<RecommendView> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  child: Image.network(
-                                    recommendBookDemon[index].imageUrl,
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        recommendBookDemon[index].imageUrl,
                                     fit: BoxFit.contain,
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
                                   ),
                                 ),
                                 Text(
                                   recommendBookDemon[index].bookName,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
                                   ),
                                 ),
@@ -182,19 +190,21 @@ class RecommendViewState extends State<RecommendView> {
     });
   }
 
-  void _onTapGod(index){
-    debugPrint("${recommendBookGod[index].bookName}||${recommendBookGod[index].id}");
+  void _onTapGod(index) {
+    debugPrint(
+        "${recommendBookGod[index].bookName}||${recommendBookGod[index].id}");
     _jumpBookInfo(recommendBookGod[index].id);
   }
 
-  void _onTapDemon(index){
-    debugPrint("${recommendBookDemon[index].bookName}||${recommendBookDemon[index].id}");
+  void _onTapDemon(index) {
+    debugPrint(
+        "${recommendBookDemon[index].bookName}||${recommendBookDemon[index].id}");
     _jumpBookInfo(recommendBookDemon[index].id);
   }
 
   //跳转到图书详情
-  void _jumpBookInfo(String id){
-    if(id.isEmpty){
+  void _jumpBookInfo(String id) {
+    if (id.isEmpty) {
       return;
     }
     debugPrint('接收到消息，开始跳转到图书详情');

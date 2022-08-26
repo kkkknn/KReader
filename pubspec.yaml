@@ -39,8 +39,8 @@ dependencies:
   # shared_preferences
   shared_preferences: ^2.0.15
 
-  # 轮播插件 flutter_swiper: ^1.1.6
-  flutter_swiper_plus: ^2.0.4
+  # 轮播插件 flutter_swiper_view: ^1.1.8
+  flutter_swiper_view: ^1.1.8
 
   # 网络框架dio
   dio: ^4.0.6
@@ -69,6 +69,9 @@ dependencies:
   #proste_indexed_stack: 底部页面缓存
   proste_indexed_stack: ^0.2.4
 
+  #图片缓存
+  cached_network_image: ^3.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -95,6 +98,7 @@ flutter:
   assets:
   - assets/icons/
   - assets/images/
+  - assets/test/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

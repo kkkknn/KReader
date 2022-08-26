@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreader/components/background.dart';
 import 'package:kreader/pages/public_components/book.dart';
 
 import 'components/banner_view.dart';
@@ -14,35 +15,19 @@ class MyInfo extends StatefulWidget {
 class MyInfoState extends State<MyInfo> {
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            BannerView(
-              isSign: false,
-            ),
-            BookView(
-              title: '已下载',
-              data:  [
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-              ],
-              onTap: onTap,
-            ),
-            BookView(
-              title: '最近观看',
-              data: [
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-                Book(bookName: '图书1', id:'1',imageUrl: 'assets/test/book.jpg',author:'asdasdasd'),
-              ],
-              onTap: onTap,
-            ),
-          ],
+      child: Container(
+        width: size.width,
+        height: size.height,
+        color: Colors.white,
+        child:SingleChildScrollView(
+          child: Column(
+            children: [
+              BannerView(),
+
+            ],
+          ),
         ),
       ),
     );

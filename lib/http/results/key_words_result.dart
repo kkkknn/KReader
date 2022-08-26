@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user_result.g.dart';
+part 'key_words_result.g.dart';
 
 
 @JsonSerializable()
-class UserResult extends Object {
+class KeyWordsResult extends Object {
 
   @JsonKey(name: 'code')
   int code;
@@ -15,11 +15,11 @@ class UserResult extends Object {
   @JsonKey(name: 'data')
   Data data;
 
-  UserResult(this.code,this.message,this.data,);
+  KeyWordsResult(this.code,this.message,this.data,);
 
-  factory UserResult.fromJson(Map<String, dynamic> srcJson) => _$UserResultFromJson(srcJson);
+  factory KeyWordsResult.fromJson(Map<String, dynamic> srcJson) => _$KeyWordsResultFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$UserResultToJson(this);
+  Map<String, dynamic> toJson() => _$KeyWordsResultToJson(this);
 
 }
 
@@ -27,13 +27,15 @@ class UserResult extends Object {
 @JsonSerializable()
 class Data extends Object {
 
-  @JsonKey(name: 'token')
-  String token;
+  @JsonKey(name: 'keywords')
+  List<String> keywords;
 
-  Data(this.token,);
+  Data(this.keywords,);
 
   factory Data.fromJson(Map<String, dynamic> srcJson) => _$DataFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$DataToJson(this);
 
 }
+
+

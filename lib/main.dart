@@ -73,8 +73,8 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, GoRouterState state) {
           return BrowsePage(
             bookId: state.params['bookId']!,
-            page: state.params['page']!,
-            browCount: state.params['browCount']!,
+            page: state.queryParams['page']!,
+            episodeCount: state.queryParams['episodeCount']!,
           );
         },
       ),

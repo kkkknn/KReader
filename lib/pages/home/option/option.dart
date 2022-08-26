@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreader/components/background.dart';
 
 class Option extends StatefulWidget {
   const Option({Key? key}) : super(key: key);
@@ -10,10 +11,17 @@ class Option extends StatefulWidget {
 class OptionState extends State<Option> {
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return SafeArea(
+      child: Container(
+        width: size.width,
+        height: size.height,
+        color: Colors.white,
         child: Container(
-            child: Text('设置'),
+          alignment: Alignment.center,
+          child: Text('设置'),
         ),
+      ),
     );
   }
 }
