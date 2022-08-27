@@ -12,22 +12,26 @@ class KeyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      spacing: 10,
-      runSpacing: 10,
-      alignment: WrapAlignment.center,
+      spacing: 8,
+      runSpacing: 8,
+      alignment: WrapAlignment.start,
       children: list
           .map((e) => Ink(
                 decoration: BoxDecoration(
-                  color: Config.primaryColor,
+                  color: Colors.pink[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(20),
                   onTap: () => onTap(e),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     child: Text(
                       e.toString(),
+                      style: TextStyle(
+                        color: Colors.pink,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),

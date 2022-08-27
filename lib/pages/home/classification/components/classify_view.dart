@@ -11,19 +11,19 @@ class ClassifyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size=MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Wrap(
       direction: Axis.horizontal,
-      spacing: 10,
-      runSpacing: 10,
+      spacing: 30,
+      runSpacing: 30,
       alignment: WrapAlignment.center,
       children: data
           .map(
             (e) => InkWell(
               onTap: () => onTap(e.name),
               child: Container(
-                  width: size.width/4,
-                  height: size.width/4+30,
+                  width: size.width / 4,
+                  height: size.width / 4 + 30,
                   padding: EdgeInsets.zero,
                   child: FittedBox(
                     fit: BoxFit.contain,
@@ -31,24 +31,29 @@ class ClassifyView extends StatelessWidget {
                       children: [
                         Container(
                           alignment: Alignment.center,
-                          width: size.width/4,
-                          height: size.width/4,
+                          width: size.width / 4,
+                          height: size.width / 4,
                           //超出部分，可裁剪
                           clipBehavior: Clip.hardEdge,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Image.network(
                             e.imageUrl,
                             fit: BoxFit.cover,
-                            errorBuilder:(context,error,stackTrace){
-                              return Image.asset('assets/images/default/author.jpg');
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
+                                  'assets/images/default/author.jpg');
                             },
                           ),
                         ),
                         Text(
                           e.name,
                           textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.pink,
+                          ),
                         ),
                       ],
                     ),

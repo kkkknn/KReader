@@ -42,39 +42,38 @@ class RecommendViewState extends State<RecommendView> {
                   fontSize: 20,
                 ),
               ),
-              Container(
+              SizedBox(
                 width: size.width,
                 height: size.width / 2,
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemExtent: size.width / 4,
                   itemCount: recommendBookGod.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () => _onTapGod(index),
-                      child: SizedBox(
-                        width: width,
-                        child: Padding(
-                            padding: const EdgeInsets.all(2),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  child: CachedNetworkImage(
-                                    imageUrl: recommendBookGod[index].imageUrl,
-                                    fit: BoxFit.contain,
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
-                                ),
-                                Text(
-                                  recommendBookGod[index].bookName,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              child: CachedNetworkImage(
+                                imageUrl: recommendBookGod[index].imageUrl,
+                                fit: BoxFit.contain,
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              ),
+                            ),
+                            Expanded(child: Text(
+                              recommendBookGod[index].bookName,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
                             )),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -91,36 +90,34 @@ class RecommendViewState extends State<RecommendView> {
                 width: size.width,
                 height: size.width / 2,
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemExtent: size.width / 4,
                   itemCount: recommendBookDemon.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () => _onTapDemon(index),
-                      child: SizedBox(
-                        width: width,
-                        child: Padding(
-                            padding: const EdgeInsets.all(2),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        recommendBookDemon[index].imageUrl,
-                                    fit: BoxFit.contain,
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
-                                ),
-                                Text(
-                                  recommendBookDemon[index].bookName,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            )),
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              child: CachedNetworkImage(
+                                imageUrl: recommendBookDemon[index].imageUrl,
+                                fit: BoxFit.contain,
+                                errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                              ),
+                            ),
+                            Expanded(child: Text(
+                              recommendBookDemon[index].bookName,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),),
+                          ],
+                        ),
                       ),
                     );
                   },

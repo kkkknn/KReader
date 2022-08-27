@@ -15,10 +15,12 @@ class SearchPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: SingleChildScrollView(
-        child:Container(
+        child:SizedBox(
           width: size.width,
           height: size.height,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Flex(
+        direction: Axis.vertical,
+        children: <Widget>[
             SearchBar(
               searchWord:searchWord,
               hintLabel: "请输入要搜索的本子",

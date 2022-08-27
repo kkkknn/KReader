@@ -22,7 +22,8 @@ class BookInfoPage extends StatefulWidget {
 
 class BookInfoPageState extends State<BookInfoPage> {
   //默认空的图书详情
-  BookInfo bookInfo =BookInfo() ;
+  BookInfo bookInfo = BookInfo();
+
   final double buttonSize = 36;
 
   @override
@@ -34,7 +35,6 @@ class BookInfoPageState extends State<BookInfoPage> {
       child: Container(
         width: width,
         height: height,
-        color: Colors.white,
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(5),
           child: Column(
@@ -48,13 +48,13 @@ class BookInfoPageState extends State<BookInfoPage> {
                     SizedBox(
                       width: width / 3,
                       height: width / 3 * 1.75,
-                      child:
-                      CachedNetworkImage(
+                      child: CachedNetworkImage(
                         width: width / 3,
                         height: width / 3 * 1.75,
                         fit: BoxFit.contain,
                         imageUrl: bookInfo.bookImageUrl,
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     Expanded(
@@ -62,11 +62,11 @@ class BookInfoPageState extends State<BookInfoPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(10),
                             child: Text(
                               bookInfo.bookName,
                               style: const TextStyle(
-                                  fontSize: 16, color: Colors.pink),
+                                  fontSize: 18, color: Colors.pink),
                             ),
                           ),
                           Padding(
@@ -81,14 +81,18 @@ class BookInfoPageState extends State<BookInfoPage> {
                                     child: CachedNetworkImage(
                                       width: width / 15,
                                       height: width / 15,
-                                      imageUrl:bookInfo.authorImageUrl,
+                                      imageUrl: bookInfo.authorImageUrl,
                                       fit: BoxFit.contain,
-                                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 5),
-                                Text(bookInfo.author),
+                                const SizedBox(width: 2),
+                                Text(bookInfo.author,style: const TextStyle(
+                                  color: Colors.pink,
+                                  fontSize: 12,
+                                ),),
                               ],
                             ),
                           ),
@@ -137,8 +141,8 @@ class BookInfoPageState extends State<BookInfoPage> {
                                       );
                                     },
                                     likeCount: bookInfo.likeCount,
-                                    countBuilder:
-                                        (int? count, bool isLiked, String text) {
+                                    countBuilder: (int? count, bool isLiked,
+                                        String text) {
                                       var color = isLiked
                                           ? Colors.deepPurpleAccent
                                           : Colors.grey;
@@ -206,18 +210,68 @@ class BookInfoPageState extends State<BookInfoPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      '简介：',
+                      '标签：',
                       style: TextStyle(fontSize: 18, color: Colors.pink),
                     ),
                     Padding(
-                      padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      child: bookInfo.description==null?const Text('暂无简介'):Text(bookInfo.description),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 5,
+                        runSpacing: 5,
+                        alignment: WrapAlignment.start,
+                        children: List.generate(
+                          bookInfo.tags.length,
+                          (index) => Ink(
+                            decoration: BoxDecoration(
+                              color: Colors.pink[100],
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(20),
+                              onTap: () => _onTapTag(index),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 10),
+                                child: Text(
+                                  bookInfo.tags[index],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              bookInfo.bookId.isEmpty?const Text('正在获取数据'):EpisodesView(bookId: bookInfo.bookId),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '简介：',
+                      style: TextStyle(fontSize: 18, color: Colors.pink),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      child: bookInfo.description == null
+                          ? const Text('暂无简介')
+                          : Text(bookInfo.description),
+                    ),
+                  ],
+                ),
+              ),
+              bookInfo.bookId.isEmpty
+                  ? const Text('正在获取数据')
+                  : EpisodesView(bookId: bookInfo.bookId),
             ],
           ),
         ),
@@ -288,5 +342,10 @@ class BookInfoPageState extends State<BookInfoPage> {
     var second =
         updateTime.second < 10 ? '0${updateTime.second}' : updateTime.second;
     return "$year-$month-$day $hour:$minute:$second";
+  }
+
+  //选择了标签
+  _onTapTag(int index) {
+    debugPrint('选择了${bookInfo.tags[index]}');
   }
 }
