@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kreader/components/background.dart';
 import 'package:kreader/http/results/book_result.dart';
+import 'package:kreader/http/results/like_or_favorite_result.dart';
 import 'package:kreader/pages/book_info/components/episodes_view.dart';
 import 'package:like_button/like_button.dart';
 
@@ -122,6 +123,7 @@ class BookInfoPageState extends State<BookInfoPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: LikeButton(
+                                    onTap: _onLikeButtonTapped,
                                     size: buttonSize,
                                     circleColor: const CircleColor(
                                         start: Color(0xff00ddff),
@@ -156,6 +158,7 @@ class BookInfoPageState extends State<BookInfoPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: LikeButton(
+                                    onTap: _onFavoriteButtonTapped,
                                     size: buttonSize,
                                     circleColor: const CircleColor(
                                         start: Color(0xff00ddff),
@@ -237,7 +240,7 @@ class BookInfoPageState extends State<BookInfoPage> {
                                 child: Text(
                                   bookInfo.tags[index],
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
                                   ),
                                 ),
@@ -347,5 +350,58 @@ class BookInfoPageState extends State<BookInfoPage> {
   //选择了标签
   _onTapTag(int index) {
     debugPrint('选择了${bookInfo.tags[index]}');
+  }
+
+  Future<bool?> _onLikeButtonTapped(bool isLiked) async{
+    /// send your request here
+    final bool success= await _sendLikeOrFavorite('like');
+
+    /// if failed, you can do nothing
+    return success? !isLiked:isLiked;
+  }
+
+  Future<bool?> _onFavoriteButtonTapped(bool isLiked) async{
+    /// send your request here
+    final bool success= await _sendLikeOrFavorite('favorite');
+
+    /// if failed, you can do nothing
+    return success? !isLiked:isLiked;
+  }
+
+  _sendLikeOrFavorite(String s) {
+    //todo  有问题，
+    DioUtil dioUtil = DioUtil.getInstance();
+
+    Future<LikeOrFavoriteResult> result;
+    if(s=='like'){
+      result = dioUtil.likeBook(bookInfo.bookId);
+      //请求成功，开始填充数据
+      result.then((value) {
+        LikeOrFavoriteResult likeOrFavoriteResult=value;
+        if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success'){
+          var action=likeOrFavoriteResult.data.action;
+          if(action=='like'){
+            return true;
+          }
+        }
+      },);
+    }
+
+
+    if(s=='favorite'){
+      result = dioUtil.favoriteBook(bookInfo.bookId);
+      //请求成功，开始填充数据
+      result.then((value) {
+        LikeOrFavoriteResult likeOrFavoriteResult=value;
+        if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success'){
+          var action=likeOrFavoriteResult.data.action;
+          if(action=='favorite'){
+            return true;
+          }
+        }
+      },);
+    }
+
+    return false;
   }
 }

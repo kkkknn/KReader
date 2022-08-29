@@ -9,6 +9,7 @@ import 'package:kreader/http/results/book_result.dart';
 import 'package:kreader/http/results/category_result.dart';
 import 'package:kreader/http/results/episodes_pictures_result.dart';
 import 'package:kreader/http/results/key_words_result.dart';
+import 'package:kreader/http/results/like_or_favorite_result.dart';
 import 'package:kreader/http/results/recommend_book_result.dart';
 import 'package:kreader/http/results/search_book_result.dart';
 import 'package:kreader/http/results/user_info_result.dart';
@@ -193,7 +194,7 @@ class DioUtil {
     return KeyWordsResult.fromJson(response.data);
   }
 
-  //搜索
+  //关键词搜索
   Future<SearchBookResult> searchBook(String searchWord,String sort,int page) async{
     var url='${_base}comics/advanced-search?page=$page';
 
@@ -227,10 +228,29 @@ class DioUtil {
   }
 
   //喜欢漫画
+  Future<LikeOrFavoriteResult> likeBook(String id) async{
+    var url='${_base}comics/$id/like';
+
+    Response response = await _httpReq(
+        url,
+        'POST',
+        null);
+    debugPrint(response.data.toString());
+    return LikeOrFavoriteResult.fromJson(response.data);
+  }
 
   //收藏漫画
+  Future<LikeOrFavoriteResult> favoriteBook(String id) async{
+    var url='${_base}comics/$id/favourite';
 
-  //修改自我介绍
+    Response response = await _httpReq(
+        url,
+        'POST',
+        null);
+    debugPrint(response.data.toString());
+    return LikeOrFavoriteResult.fromJson(response.data);
+  }
+
 
 
   Future<Response<dynamic>> _httpReq(String url,String method, Map<String,dynamic>? map) async {
