@@ -354,54 +354,27 @@ class BookInfoPageState extends State<BookInfoPage> {
 
   Future<bool?> _onLikeButtonTapped(bool isLiked) async{
     /// send your request here
-    final bool success= await _sendLikeOrFavorite('like');
+    DioUtil dioUtil = DioUtil.getInstance();
 
-    /// if failed, you can do nothing
-    return success? !isLiked:isLiked;
+    LikeOrFavoriteResult likeOrFavoriteResult=await dioUtil.likeBook(bookInfo.bookId);
+    //请求成功，开始填充数据
+    if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success') {
+      return !isLiked;
+    }else{
+      return isLiked;
+    }
   }
 
   Future<bool?> _onFavoriteButtonTapped(bool isLiked) async{
-    /// send your request here
-    final bool success= await _sendLikeOrFavorite('favorite');
 
-    /// if failed, you can do nothing
-    return success? !isLiked:isLiked;
-  }
-
-  _sendLikeOrFavorite(String s) {
-    //todo  有问题，
     DioUtil dioUtil = DioUtil.getInstance();
-
-    Future<LikeOrFavoriteResult> result;
-    if(s=='like'){
-      result = dioUtil.likeBook(bookInfo.bookId);
-      //请求成功，开始填充数据
-      result.then((value) {
-        LikeOrFavoriteResult likeOrFavoriteResult=value;
-        if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success'){
-          var action=likeOrFavoriteResult.data.action;
-          if(action=='like'){
-            return true;
-          }
-        }
-      },);
+    LikeOrFavoriteResult likeOrFavoriteResult=await dioUtil.favoriteBook(bookInfo.bookId);
+    //请求成功，开始填充数据
+    if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success') {
+      return !isLiked;
+    }else{
+      return isLiked;
     }
-
-
-    if(s=='favorite'){
-      result = dioUtil.favoriteBook(bookInfo.bookId);
-      //请求成功，开始填充数据
-      result.then((value) {
-        LikeOrFavoriteResult likeOrFavoriteResult=value;
-        if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success'){
-          var action=likeOrFavoriteResult.data.action;
-          if(action=='favorite'){
-            return true;
-          }
-        }
-      },);
-    }
-
-    return false;
   }
+
 }
