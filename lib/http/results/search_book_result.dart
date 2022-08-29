@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'search_result.g.dart';
+part 'search_book_result.g.dart';
 
 
 @JsonSerializable()
-class SearchResult extends Object {
+class SearchBookResult extends Object {
 
   @JsonKey(name: 'code')
   int code;
@@ -15,11 +15,11 @@ class SearchResult extends Object {
   @JsonKey(name: 'data')
   Data data;
 
-  SearchResult(this.code,this.message,this.data,);
+  SearchBookResult(this.code,this.message,this.data,);
 
-  factory SearchResult.fromJson(Map<String, dynamic> srcJson) => _$SearchResultFromJson(srcJson);
+  factory SearchBookResult.fromJson(Map<String, dynamic> srcJson) => _$SearchBookResultFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$SearchResultToJson(this);
+  Map<String, dynamic> toJson() => _$SearchBookResultToJson(this);
 
 }
 

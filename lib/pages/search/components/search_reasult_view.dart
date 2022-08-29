@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kreader/pages/search/components/search_book_result.dart';
+import 'package:kreader/pages/search/components/book_item.dart';
 
 class SearchResultView extends StatelessWidget {
-  final List<SearchBookResult> data;
+  final List<BookItem> data;
   final Function onTap;
 
   const SearchResultView({Key? key, required this.data, required this.onTap})

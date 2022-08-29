@@ -10,6 +10,7 @@ import 'package:kreader/http/results/category_result.dart';
 import 'package:kreader/http/results/episodes_pictures_result.dart';
 import 'package:kreader/http/results/key_words_result.dart';
 import 'package:kreader/http/results/recommend_book_result.dart';
+import 'package:kreader/http/results/search_book_result.dart';
 import 'package:kreader/http/results/user_info_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -193,6 +194,37 @@ class DioUtil {
   }
 
   //搜索
+  Future<SearchBookResult> searchBook(String searchWord,String sort,int page) async{
+    var url='${_base}comics/advanced-search?page=$page';
+
+    Map<String,dynamic> map=<String,dynamic>{
+      "sort": sort.isEmpty?'ua':sort,
+      "keyword": searchWord.isEmpty?'':searchWord,
+    };
+
+
+    debugPrint(map.toString());
+    Response response = await _httpReq(
+        url,
+        'POST',
+        map);
+    debugPrint(response.data.toString());
+    return SearchBookResult.fromJson(response.data);
+  }
+
+  //分类搜索
+  Future<SearchBookResult> searchCategoryBook(String categories,String sort,int page) async{
+    var str=sort.isEmpty?'ua':sort;
+    var cate=Uri.encodeComponent(categories);
+    var url='${_base}comics?page=$page&c=$cate&s=$str';
+
+    Response response = await _httpReq(
+        url,
+        'GET',
+        null);
+    debugPrint(response.data.toString());
+    return SearchBookResult.fromJson(response.data);
+  }
 
   //喜欢漫画
 
@@ -230,4 +262,5 @@ class DioUtil {
     //没有指定请求类型，直接抛出异常
     throw Error();
   }
+
 }

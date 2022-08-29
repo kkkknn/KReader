@@ -52,10 +52,12 @@ class MyApp extends StatelessWidget {
           builder: (BuildContext context, GoRouterState state) =>
               const SignUpPage()),
       GoRoute(
-        path: '/search/:searchWord',
+        name: 'search',
+        path: '/search',
         builder: (BuildContext context, GoRouterState state) {
           return SearchPage(
-            searchWord: state.params['searchWord']!,
+            searchWord: state.queryParams['searchWord']!,
+            category:state.queryParams['category']!,
           );
         },
       ),

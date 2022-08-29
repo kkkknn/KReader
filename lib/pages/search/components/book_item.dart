@@ -1,4 +1,4 @@
-class SearchBookResult {
+class BookItem {
   bool isFinish = false;
   String bookName = '';
   String author = '';
@@ -6,7 +6,8 @@ class SearchBookResult {
   int likeCount = 0;
   int searchCount = 0;
   List<String> categories = [];
+  String bookId='';
 
-  SearchBookResult({required this.isFinish, required this.bookName, required this.author, required this.imageUrl,
+  BookItem({required this.bookId,required this.isFinish, required this.bookName, required this.author, required this.imageUrl,
       required this.likeCount,  required this.searchCount, required this.categories});
 }

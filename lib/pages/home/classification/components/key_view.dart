@@ -23,13 +23,13 @@ class KeyView extends StatelessWidget {
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(20),
-                  onTap: () => onTap(e),
+                  onTap: ()=>onTap(e),
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     child: Text(
                       e.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.pink,
                       ),
                       textAlign: TextAlign.center,

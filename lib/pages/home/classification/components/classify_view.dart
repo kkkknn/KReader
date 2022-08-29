@@ -16,11 +16,11 @@ class ClassifyView extends StatelessWidget {
       direction: Axis.horizontal,
       spacing: 30,
       runSpacing: 30,
-      alignment: WrapAlignment.center,
+      alignment: WrapAlignment.start,
       children: data
           .map(
             (e) => InkWell(
-              onTap: () => onTap(e.name),
+              onTap: () => _onTap(e.name),
               child: Container(
                   width: size.width / 4,
                   height: size.width / 4 + 30,
@@ -64,7 +64,7 @@ class ClassifyView extends StatelessWidget {
     );
   }
 
-  onTap(String key) {
+  _onTap(String key) {
     onPress(key);
   }
 }

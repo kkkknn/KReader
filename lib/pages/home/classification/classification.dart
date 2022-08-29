@@ -41,8 +41,7 @@ class ClassificationState extends State<Classification> {
                   onTap: (String str) {
                     if (str.isNotEmpty) {
                       debugPrint("您搜索的是$str");
-                      //跳转页面
-                      context.push('/search/$str');
+                      _jump2SearchPageByKeyWord(str);
                     }
                   },
                 ),
@@ -69,7 +68,9 @@ class ClassificationState extends State<Classification> {
                         KeyView(
                           list: hotKeyWords,
                           onPress: (String key) {
+                            //跳转到搜索页，以标签为分类搜索
                             debugPrint('您点击的是$key');
+                            _jump2SearchPageByKeyWord(key);
                           },
                         ),
                         const SizedBox(
@@ -90,7 +91,9 @@ class ClassificationState extends State<Classification> {
                           alignment: Alignment.topCenter,
                           child: ClassifyView(
                             onPress: (String key) {
+                              //跳转到搜索页，以标签为分类搜索
                               debugPrint('您点击的是' + key);
+                              _jump2SearchPageByCategory(key);
                             },
                             data: classifies,
                           ),
@@ -145,11 +148,11 @@ class ClassificationState extends State<Classification> {
         var imageUrl;
         if (item.id != null || item.title == '被褐懷玉') {
           imageUrl = "${item.thumb.fileServer}/static/${item.thumb.path}";
-        } else {
+          Classify classify = Classify(id, name, imageUrl);
+          classifies.add(classify);
+        } /*else {
           imageUrl = "${item.thumb.fileServer}${item.thumb.path}";
-        }
-        Classify classify = Classify(id, name, imageUrl);
-        classifies.add(classify);
+        }*/
       }
     }
   }
@@ -176,5 +179,31 @@ class ClassificationState extends State<Classification> {
     if (keyWordsResult.code == 200 && keyWordsResult.message == 'success') {
       hotKeyWords.addAll(keyWordsResult.data.keywords);
     }
+  }
+
+  void _jump2SearchPageByKeyWord(String keyWord) {
+
+    //路由跳转 传递参数出现汉子或特殊字符 会出现找不到路由情况 需要Uri.encodeComponent 编码做字符转义
+    final Map<String, String> newQueries;
+    newQueries = <String, String>{
+      'searchWord': keyWord,
+      'category': '',
+    };
+    //跳转页面  2个参数， 关键词/分类
+    context.pushNamed('search',queryParams: newQueries);
+
+  }
+
+  void _jump2SearchPageByCategory(String category) {
+
+    //路由跳转 传递参数出现汉子或特殊字符 会出现找不到路由情况 需要Uri.encodeComponent 编码做字符转义
+    final Map<String, String> newQueries;
+    newQueries = <String, String>{
+      'searchWord': '',
+      'category': category,
+    };
+    //跳转页面  2个参数， 关键词/分类
+    context.pushNamed('search',queryParams: newQueries);
+
   }
 }

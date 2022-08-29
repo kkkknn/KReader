@@ -1,18 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_result.dart';
+part of 'search_book_result.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SearchResult _$SearchResultFromJson(Map<String, dynamic> json) => SearchResult(
+SearchBookResult _$SearchBookResultFromJson(Map<String, dynamic> json) =>
+    SearchBookResult(
       json['code'] as int,
       json['message'] as String,
       Data.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$SearchResultToJson(SearchResult instance) =>
+Map<String, dynamic> _$SearchBookResultToJson(SearchBookResult instance) =>
     <String, dynamic>{
       'code': instance.code,
       'message': instance.message,
