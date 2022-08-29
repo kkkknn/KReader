@@ -350,6 +350,15 @@ class BookInfoPageState extends State<BookInfoPage> {
   //选择了标签
   _onTapTag(int index) {
     debugPrint('选择了${bookInfo.tags[index]}');
+    //路由跳转 传递参数出现汉子或特殊字符 会出现找不到路由情况 需要Uri.encodeComponent 编码做字符转义
+    final Map<String, String> newQueries;
+    newQueries = <String, String>{
+      'searchWord': bookInfo.tags[index],
+      'category': '',
+    };
+    //跳转页面  2个参数， 关键词/分类
+    context.pushNamed('search',queryParams: newQueries);
+
   }
 
   Future<bool?> _onLikeButtonTapped(bool isLiked) async{

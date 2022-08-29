@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kreader/pages/constants.dart';
 import 'package:kreader/pages/home/classification/components/classify.dart';
@@ -11,7 +12,9 @@ class ClassifyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Wrap(
       direction: Axis.horizontal,
       spacing: 30,
@@ -19,7 +22,8 @@ class ClassifyView extends StatelessWidget {
       alignment: WrapAlignment.start,
       children: data
           .map(
-            (e) => InkWell(
+            (e) =>
+            InkWell(
               onTap: () => _onTap(e.name),
               child: Container(
                   width: size.width / 4,
@@ -38,13 +42,11 @@ class ClassifyView extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Image.network(
-                            e.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset(
-                                  'assets/images/default/author.jpg');
-                            },
+                          child: CachedNetworkImage(
+                              imageUrl: e.imageUrl,
+                              fit: BoxFit.contain,
+                              errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                           ),
                         ),
                         Text(
@@ -59,7 +61,7 @@ class ClassifyView extends StatelessWidget {
                     ),
                   )),
             ),
-          )
+      )
           .toList(),
     );
   }

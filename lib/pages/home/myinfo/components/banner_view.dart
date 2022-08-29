@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_progress/ai_progress.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -75,20 +76,13 @@ class BannerViewState extends State<BannerView> {
                       ),
                     ),
                     ClipOval(
-                      child: Image.network(
-                        userProfile.imageUrl,
+                      child: CachedNetworkImage(
+                        imageUrl: userProfile.imageUrl,
                         width: size.width / 4 - 20,
                         height: size.width / 4 - 20,
                         fit: BoxFit.cover,
-                        errorBuilder: (BuildContext context, Object exception,
-                            StackTrace? stackTrace) {
-                          return Image.asset(
-                            width: size.width / 4 - 20,
-                            height: size.width / 4 - 20,
-                            fit: BoxFit.cover,
-                            'assets/images/default/author.jpg',
-                          );
-                        },
+                        errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                       ),
                     ),
                   ],

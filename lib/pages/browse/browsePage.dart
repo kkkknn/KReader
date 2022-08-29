@@ -81,14 +81,8 @@ class BrowsePageState extends State<BrowsePage> {
     //todo :需要判断横屏竖屏情况
 
     return CachedNetworkImage(
-      width: size.width,
-      height: size.width*1.75,
       imageUrl: images[index],
-      errorWidget: (context, url, error) => SizedBox(
-        width: size.width,
-        height: size.width*1.75,
-        child: const Icon(Icons.error,),
-      ),
+      errorWidget: (context, url, error) => const Icon(Icons.error,),
     );
   }
 }
