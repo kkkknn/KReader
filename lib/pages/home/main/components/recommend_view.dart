@@ -29,7 +29,6 @@ class RecommendViewState extends State<RecommendView> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    var width = size.width / 4;
     return recommendBookGod.isEmpty && recommendBookDemon.isEmpty
         ? const Text('暂无推荐')
         : Column(
@@ -54,12 +53,14 @@ class RecommendViewState extends State<RecommendView> {
                     return InkWell(
                       onTap: () => _onTapGod(index),
                       child: Container(
-                        padding: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(2),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
                               child: CachedNetworkImage(
+                                width: size.width / 4,
+                                height: size.width / 4 *1.4,
                                 imageUrl: recommendBookGod[index].imageUrl,
                                 fit: BoxFit.contain,
                                 errorWidget: (context, url, error) =>
@@ -69,7 +70,7 @@ class RecommendViewState extends State<RecommendView> {
                             Expanded(child: Text(
                               recommendBookGod[index].bookName,
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             )),
                           ],
@@ -98,12 +99,14 @@ class RecommendViewState extends State<RecommendView> {
                     return InkWell(
                       onTap: () => _onTapDemon(index),
                       child: Container(
-                        padding: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(2),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
                               child: CachedNetworkImage(
+                                width: size.width / 4,
+                                height: size.width / 4 *1.4,
                                 imageUrl: recommendBookDemon[index].imageUrl,
                                 fit: BoxFit.contain,
                                 errorWidget: (context, url, error) =>
@@ -113,7 +116,7 @@ class RecommendViewState extends State<RecommendView> {
                             Expanded(child: Text(
                               recommendBookDemon[index].bookName,
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),),
                           ],

@@ -28,10 +28,13 @@ class BrowsePageState extends State<BrowsePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: images.length,
-        itemBuilder: _itemBuilder,
+      child: Container(
+        color: Colors.white,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: images.length,
+          itemBuilder: _itemBuilder,
+        ),
       ),
     );
   }
@@ -40,6 +43,7 @@ class BrowsePageState extends State<BrowsePage> {
   void initState() {
     super.initState();
     debugPrint('开始获取图书列表信息');
+    EasyLoading.show(status: '正在拼命加载...');
     //获取当前章节图片列表
     _getPictures(super.widget.bookId, super.widget.episodeCount);
   }
@@ -57,7 +61,14 @@ class BrowsePageState extends State<BrowsePage> {
         debugPrint('获取到图片数据了');
         _analysisEpisodePicturesData(value);
       });
+      if(EasyLoading.isShow){
+        EasyLoading.dismiss();
+      }
+
     }, onError: (e) {
+      if(EasyLoading.isShow){
+        EasyLoading.dismiss();
+      }
       EasyLoading.showError('网络出错');
       debugPrint('网络出错$e');
     });
