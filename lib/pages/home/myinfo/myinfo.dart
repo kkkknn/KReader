@@ -23,9 +23,8 @@ class MyInfoState extends State<MyInfo> {
         color: Colors.white,
         child:SingleChildScrollView(
           child: Column(
-            children: [
+            children: const [
               BannerView(),
-
             ],
           ),
         ),

@@ -92,7 +92,7 @@ class ClassificationState extends State<Classification> {
                           child: ClassifyView(
                             onPress: (String key) {
                               //跳转到搜索页，以标签为分类搜索
-                              debugPrint('您点击的是' + key);
+                              debugPrint('您点击的是$key');
                               _jump2SearchPageByCategory(key);
                             },
                             data: classifies,

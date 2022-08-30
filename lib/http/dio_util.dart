@@ -10,6 +10,7 @@ import 'package:kreader/http/results/category_result.dart';
 import 'package:kreader/http/results/episodes_pictures_result.dart';
 import 'package:kreader/http/results/key_words_result.dart';
 import 'package:kreader/http/results/like_or_favorite_result.dart';
+import 'package:kreader/http/results/punch_in_result.dart';
 import 'package:kreader/http/results/recommend_book_result.dart';
 import 'package:kreader/http/results/search_book_result.dart';
 import 'package:kreader/http/results/user_info_result.dart';
@@ -249,6 +250,15 @@ class DioUtil {
         null);
     debugPrint(response.data.toString());
     return LikeOrFavoriteResult.fromJson(response.data);
+  }
+  
+  //签到
+  Future<PunchInResult> punchIn() async{
+    var url='${_base}users/punch-in';
+    Response response=await _httpReq(url, 'POST', null);
+
+    debugPrint(response.data.toString());
+    return PunchInResult.fromJson(response.data);
   }
 
 

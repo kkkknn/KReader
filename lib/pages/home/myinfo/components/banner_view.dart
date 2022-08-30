@@ -84,19 +84,46 @@ class BannerViewState extends State<BannerView> {
                         errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                       ),
-                    ),
+                    )
                   ],
                 ),
-                Text(userProfile.name),
+                Text(
+                  userProfile.name,
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                ),
                 Text(
                   userProfile.nickname,
-                  style: const TextStyle(color: Colors.pink, fontSize: 12),
+                  style: const TextStyle(color: Colors.pink, fontSize: 14),
                 ),
                 Text(
                   userProfile.slogan,
-                  style: const TextStyle(color: Colors.grey, fontSize: 10),
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            top: size.width/20,
+            right: size.width/20,
+            child: Offstage(
+              offstage: userProfile.isPunched,
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    //设置按下时的背景颜色
+                    if (states.contains(MaterialState.pressed)) {
+                      return Colors.pink;
+                    }
+                    //默认不使用背景颜色
+                    return Colors.white;
+                  }),
+                ),
+                onPressed: ()=>_punchIn(),
+                child: const Text(
+                  '签到',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             ),
           ),
         ],
@@ -185,4 +212,24 @@ class BannerViewState extends State<BannerView> {
     }
     return color;
   }
+
+  //签到
+  _punchIn() {
+    //发送
+    DioUtil dioUtil = DioUtil.getInstance();
+    var result = dioUtil.punchIn();
+    result.then((value) {
+      setState(() {
+        //签到成功，修改签到变量
+        if(value.code==200&&value.message=='success'&&value.data.res.status=='success'){
+          userProfile.isPunched=!userProfile.isPunched;
+          debugPrint('签到成功${userProfile.isPunched}');
+        }
+      });
+    }, onError: (e) {
+      EasyLoading.showError('网络出错');
+      debugPrint('网络出错$e');
+    });
+  }
+
 }

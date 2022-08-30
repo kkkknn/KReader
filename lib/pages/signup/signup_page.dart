@@ -61,7 +61,7 @@ class MobileSignupPage extends StatelessWidget {
             Spacer(),
           ],
         ),
-        // const SocalSignUp()
+
       ],
     );
   }
