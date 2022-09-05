@@ -8,6 +8,7 @@ import 'package:kreader/pages/search/search_page.dart';
 import 'package:kreader/pages/signup/signup_page.dart';
 import 'package:kreader/pages/welcome/welcome_page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:kreader/text_page.dart';
 
 import 'pages/browse/browsePage.dart';
 

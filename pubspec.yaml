@@ -72,6 +72,9 @@ dependencies:
   #图片缓存
   cached_network_image: ^3.2.1
 
+  #进度条控件
+  flutter_advanced_seekbar: ^0.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

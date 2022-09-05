@@ -221,7 +221,7 @@ class BannerViewState extends State<BannerView> {
     result.then((value) {
       setState(() {
         //签到成功，修改签到变量
-        if(value.code==200&&value.message=='success'&&value.data.res.status=='success'){
+        if(value.code==200&&value.message=='success'&&value.data.res.status=='ok'){
           userProfile.isPunched=!userProfile.isPunched;
           debugPrint('签到成功${userProfile.isPunched}');
         }

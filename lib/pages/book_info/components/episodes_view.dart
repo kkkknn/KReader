@@ -50,10 +50,10 @@ class EpisodesViewState extends State<EpisodesView> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                 child: Text(
                   episodes[index].name,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white,fontSize: 12,),
                 ),
               ),
             ),
