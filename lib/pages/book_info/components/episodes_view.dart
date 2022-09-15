@@ -18,9 +18,9 @@ class EpisodesView extends StatefulWidget {
 class EpisodesViewState extends State<EpisodesView> {
   //当前页
   int page = 1;
-
+  static int limit = 40;
   //最大页数
-  int maxPage = 1;
+  int maxPage = 0;
   List<Episode> episodes = [];
 
   @override
@@ -35,7 +35,7 @@ class EpisodesViewState extends State<EpisodesView> {
             final Map<String, String> newQueries;
             newQueries = <String, String>{
               'page': page.toString(),
-              'episodeCount': (index+1).toString(),
+              'episodeCount': (index + 1).toString(),
             };
             debugPrint('你点击的是${episodes[index].name}');
             context.pushNamed('browseView',
@@ -53,6 +53,10 @@ class EpisodesViewState extends State<EpisodesView> {
                 padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                 child: Text(
                   episodes[index].name,
+                  strutStyle: const StrutStyle(
+                    forceStrutHeight: true,
+                    leading: 0.5,
+                  ),
                   style: const TextStyle(color: Colors.white,fontSize: 12,),
                 ),
               ),
@@ -94,6 +98,7 @@ class EpisodesViewState extends State<EpisodesView> {
     if (bookEpisodesResult.code == 200 &&
         bookEpisodesResult.message == 'success') {
       List<Docs> list = bookEpisodesResult.data.eps.docs;
+      maxPage=bookEpisodesResult.data.eps.total;
       for (var item in list) {
         Episode it = Episode(
           id: item.id,

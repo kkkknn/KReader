@@ -79,6 +79,8 @@ class DioUtil {
       'POST',
       map,
     );
+
+    debugPrint(response.data.toString());
     if (response.statusCode == 200) {
       if (response.data['message'] == 'success') {
         var token=response.data['data']['token'];

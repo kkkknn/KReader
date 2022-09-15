@@ -75,6 +75,9 @@ dependencies:
   #进度条控件
   flutter_advanced_seekbar: ^0.0.2
 
+  #加载更多 easy_load_more: ^1.0.1
+  easy_load_more: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

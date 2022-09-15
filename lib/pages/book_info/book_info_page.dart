@@ -90,10 +90,13 @@ class BookInfoPageState extends State<BookInfoPage> {
                                   ),
                                 ),
                                 const SizedBox(width: 2),
-                                Text(bookInfo.author,style: const TextStyle(
-                                  color: Colors.pink,
-                                  fontSize: 12,
-                                ),),
+                                Text(
+                                  bookInfo.author,
+                                  style: const TextStyle(
+                                    color: Colors.pink,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -240,6 +243,10 @@ class BookInfoPageState extends State<BookInfoPage> {
                                 child: Text(
                                   bookInfo.tags[index],
                                   textAlign: TextAlign.center,
+                                  strutStyle: const StrutStyle(
+                                    forceStrutHeight: true,
+                                    leading: 0.5,
+                                  ),
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),
@@ -357,33 +364,34 @@ class BookInfoPageState extends State<BookInfoPage> {
       'category': '',
     };
     //跳转页面  2个参数， 关键词/分类
-    context.pushNamed('search',queryParams: newQueries);
-
+    context.pushNamed('search', queryParams: newQueries);
   }
 
-  Future<bool?> _onLikeButtonTapped(bool isLiked) async{
+  Future<bool?> _onLikeButtonTapped(bool isLiked) async {
     /// send your request here
     DioUtil dioUtil = DioUtil.getInstance();
 
-    LikeOrFavoriteResult likeOrFavoriteResult=await dioUtil.likeBook(bookInfo.bookId);
+    LikeOrFavoriteResult likeOrFavoriteResult =
+        await dioUtil.likeBook(bookInfo.bookId);
     //请求成功，开始填充数据
-    if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success') {
+    if (likeOrFavoriteResult.code == 200 &&
+        likeOrFavoriteResult.message == 'success') {
       return !isLiked;
-    }else{
+    } else {
       return isLiked;
     }
   }
 
-  Future<bool?> _onFavoriteButtonTapped(bool isLiked) async{
-
+  Future<bool?> _onFavoriteButtonTapped(bool isLiked) async {
     DioUtil dioUtil = DioUtil.getInstance();
-    LikeOrFavoriteResult likeOrFavoriteResult=await dioUtil.favoriteBook(bookInfo.bookId);
+    LikeOrFavoriteResult likeOrFavoriteResult =
+        await dioUtil.favoriteBook(bookInfo.bookId);
     //请求成功，开始填充数据
-    if(likeOrFavoriteResult.code==200&&likeOrFavoriteResult.message=='success') {
+    if (likeOrFavoriteResult.code == 200 &&
+        likeOrFavoriteResult.message == 'success') {
       return !isLiked;
-    }else{
+    } else {
       return isLiked;
     }
   }
-
 }
