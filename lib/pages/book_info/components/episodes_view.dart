@@ -19,8 +19,8 @@ class EpisodesViewState extends State<EpisodesView> {
   //当前页
   int page = 1;
   static int limit = 40;
-  //最大页数
-  int maxPage = 0;
+  //最大数量
+  int maxCount = 0;
   List<Episode> episodes = [];
 
   @override
@@ -32,15 +32,20 @@ class EpisodesViewState extends State<EpisodesView> {
       children: List.generate(episodes.length, (index) {
         return GestureDetector(
           onTap: () {
-            final Map<String, String> newQueries;
-            newQueries = <String, String>{
-              'page': page.toString(),
-              'episodeCount': (index + 1).toString(),
-            };
-            debugPrint('你点击的是${episodes[index].name}');
-            context.pushNamed('browseView',
-                params: <String, String>{'bookId': super.widget.bookId},
-                queryParams: newQueries);
+            //判断点击的是否是加载更多
+            if(episodes[index].name=='...'){
+              _getMore();
+            }else{
+              final Map<String, String> newQueries;
+              newQueries = <String, String>{
+                'page': page.toString(),
+                'episodeCount': (index + 1).toString(),
+              };
+              context.pushNamed('browseView',
+                  params: <String, String>{'bookId': super.widget.bookId},
+                  queryParams: newQueries);
+            }
+            debugPrint('你点击的是$index 名字是：${episodes[index].name}');
           },
           child: Padding(
             padding: const EdgeInsets.all(5),
@@ -98,7 +103,11 @@ class EpisodesViewState extends State<EpisodesView> {
     if (bookEpisodesResult.code == 200 &&
         bookEpisodesResult.message == 'success') {
       List<Docs> list = bookEpisodesResult.data.eps.docs;
-      maxPage=bookEpisodesResult.data.eps.total;
+      maxCount=bookEpisodesResult.data.eps.total;
+      //去除掉更多按钮
+      if(episodes.isNotEmpty&&episodes.last.name=='...'){
+        episodes.removeLast();
+      }
       for (var item in list) {
         Episode it = Episode(
           id: item.id,
@@ -106,6 +115,34 @@ class EpisodesViewState extends State<EpisodesView> {
         );
         episodes.add(it);
       }
+      //添加完相关数据后，判断是否需要添加更多按钮
+      if(episodes.length<maxCount){
+        Episode it = Episode(
+          id: '',
+          name: '...',
+        );
+        episodes.add(it);
+      }
+
     }
+  }
+
+  void _getMore() {
+    if (super.widget.bookId.isEmpty) {
+      return;
+    }
+    page++;
+    DioUtil dioUtil = DioUtil.getInstance();
+    var result = dioUtil.getBookEpisodes(super.widget.bookId, page);
+    //请求成功，开始填充数据
+    result.then((value) {
+      setState(() {
+        debugPrint('获取到图书集数数据了');
+        _analysisBookEpisodesData(value);
+      });
+    }, onError: (e) {
+      EasyLoading.showError('网络出错');
+      debugPrint('网络出错$e');
+    });
   }
 }

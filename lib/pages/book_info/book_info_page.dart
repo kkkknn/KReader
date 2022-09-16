@@ -34,6 +34,7 @@ class BookInfoPageState extends State<BookInfoPage> {
     var height = size.height;
     return SafeArea(
       child: Container(
+        color:Colors.white,
         width: width,
         height: height,
         child: SingleChildScrollView(
@@ -196,7 +197,9 @@ class BookInfoPageState extends State<BookInfoPage> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 40.0, vertical: 10.0),
                                         elevation: 0),
-                                    onPressed: () {},
+                                    onPressed: () {
+
+                                    },
                                     child: const Text(
                                       '开始阅读',
                                       style: TextStyle(),

@@ -35,7 +35,8 @@ class SearchPageState extends State<SearchPage> {
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: SingleChildScrollView(
-        child: SizedBox(
+        child: Container(
+          color:Colors.white,
           width: size.width,
           height: size.height - 40,
           child: Flex(direction: Axis.vertical, children: <Widget>[

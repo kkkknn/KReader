@@ -145,14 +145,17 @@ class ClassificationState extends State<Classification> {
       for (var item in data) {
         var id = item.id;
         var name = item.title;
+        debugPrint("name $name");
         var imageUrl;
         if (item.id != null || item.title == '被褐懷玉') {
           imageUrl = "${item.thumb.fileServer}/static/${item.thumb.path}";
           Classify classify = Classify(id, name, imageUrl);
           classifies.add(classify);
-        } /*else {
+        } else if(item.title=='大家都在看'||item.title=='那年今天'||item.title=='官方都在看'){
           imageUrl = "${item.thumb.fileServer}${item.thumb.path}";
-        }*/
+          Classify classify = Classify(id, name, imageUrl);
+          classifies.add(classify);
+        }
       }
     }
   }
