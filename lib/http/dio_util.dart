@@ -27,6 +27,7 @@ class DioUtil {
   static const String _base = "https://picaapi.picacomic.com/";
   //static const String _base = "http://68.183.234.72/";
   //static const String _base = "http://206.189.95.169/";
+  //static const String _base = "http://104.20.181.50/";
 
   DioUtil._internal() {
 

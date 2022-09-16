@@ -16,10 +16,9 @@ class MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return SafeArea(
-      child: Container(
+      child: SizedBox(
         width: size.width,
         height: size.height,
-        color: Colors.white,
         child:SingleChildScrollView(
           child: Column(
             children: const [

@@ -12,31 +12,43 @@ class KeyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      spacing: 8,
-      runSpacing: 8,
+      spacing: 2,
+      runSpacing: 2,
       alignment: WrapAlignment.start,
       children: list
-          .map((e) => Ink(
-                decoration: BoxDecoration(
-                  color: Colors.pink[100],
-                  borderRadius: BorderRadius.circular(20),
+          .map(
+            (e) => ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(
+                          10))),
+                padding: MaterialStateProperty.all(EdgeInsets.all(5)),
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    //设置按下时的背景颜色
+                    if (states.contains(MaterialState.pressed)) {
+                      return Colors.pink;
+                    }
+                    //默认不使用背景颜色
+                    return Colors.pink[100];
+                  }),
+              ),
+              onPressed: () => onTap(e),
+              child: Text(
+                e.toString(),
+                style: const TextStyle(
+                  color: Colors.pink,
+                  fontSize: 12,
                 ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(20),
-                  onTap: ()=>onTap(e),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                    child: Text(
-                      e.toString(),
-                      style: const TextStyle(
-                        color: Colors.pink,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                strutStyle: const StrutStyle(
+                  forceStrutHeight: true,
+                  leading: 0.5,
                 ),
-              ))
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
           .toList(),
     );
   }

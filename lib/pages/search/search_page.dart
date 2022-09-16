@@ -36,7 +36,6 @@ class SearchPageState extends State<SearchPage> {
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
-          color:Colors.white,
           width: size.width,
           height: size.height - 40,
           child: Flex(direction: Axis.vertical, children: <Widget>[

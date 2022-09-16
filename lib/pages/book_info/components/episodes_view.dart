@@ -19,6 +19,7 @@ class EpisodesViewState extends State<EpisodesView> {
   //当前页
   int page = 1;
   static int limit = 40;
+
   //最大数量
   int maxCount = 0;
   List<Episode> episodes = [];
@@ -30,12 +31,26 @@ class EpisodesViewState extends State<EpisodesView> {
       direction: Axis.horizontal,
       alignment: WrapAlignment.start,
       children: List.generate(episodes.length, (index) {
-        return GestureDetector(
-          onTap: () {
+        return ElevatedButton(
+          style: ButtonStyle(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            minimumSize: MaterialStateProperty.all(const Size(0, 0)),
+            padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
+            backgroundColor: MaterialStateProperty.resolveWith((states) {
+              //设置按下时的背景颜色
+              if (states.contains(MaterialState.pressed)) {
+                return Colors.pink;
+              }
+              //默认不使用背景颜色
+              return Colors.pink[100];
+            }),
+          ),
+          onPressed: () {
             //判断点击的是否是加载更多
-            if(episodes[index].name=='...'){
+            if (episodes[index].name == '...') {
               _getMore();
-            }else{
+            } else {
               final Map<String, String> newQueries;
               newQueries = <String, String>{
                 'page': page.toString(),
@@ -47,25 +62,17 @@ class EpisodesViewState extends State<EpisodesView> {
             }
             debugPrint('你点击的是$index 名字是：${episodes[index].name}');
           },
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.pink,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
-                child: Text(
-                  episodes[index].name,
-                  strutStyle: const StrutStyle(
-                    forceStrutHeight: true,
-                    leading: 0.5,
-                  ),
-                  style: const TextStyle(color: Colors.white,fontSize: 12,),
-                ),
-              ),
+          child: Text(
+            episodes[index].name,
+            style: const TextStyle(
+              color: Colors.pink,
+              fontSize: 14,
             ),
+            strutStyle: const StrutStyle(
+              forceStrutHeight: true,
+              leading: 0.5,
+            ),
+            textAlign: TextAlign.center,
           ),
         );
       }),
@@ -103,9 +110,9 @@ class EpisodesViewState extends State<EpisodesView> {
     if (bookEpisodesResult.code == 200 &&
         bookEpisodesResult.message == 'success') {
       List<Docs> list = bookEpisodesResult.data.eps.docs;
-      maxCount=bookEpisodesResult.data.eps.total;
+      maxCount = bookEpisodesResult.data.eps.total;
       //去除掉更多按钮
-      if(episodes.isNotEmpty&&episodes.last.name=='...'){
+      if (episodes.isNotEmpty && episodes.last.name == '...') {
         episodes.removeLast();
       }
       for (var item in list) {
@@ -116,14 +123,13 @@ class EpisodesViewState extends State<EpisodesView> {
         episodes.add(it);
       }
       //添加完相关数据后，判断是否需要添加更多按钮
-      if(episodes.length<maxCount){
+      if (episodes.length < maxCount) {
         Episode it = Episode(
           id: '',
           name: '...',
         );
         episodes.add(it);
       }
-
     }
   }
 

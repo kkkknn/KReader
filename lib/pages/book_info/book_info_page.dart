@@ -34,7 +34,7 @@ class BookInfoPageState extends State<BookInfoPage> {
     var height = size.height;
     return SafeArea(
       child: Container(
-        color:Colors.white,
+        color: Colors.white,
         width: width,
         height: height,
         child: SingleChildScrollView(
@@ -197,9 +197,7 @@ class BookInfoPageState extends State<BookInfoPage> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 40.0, vertical: 10.0),
                                         elevation: 0),
-                                    onPressed: () {
-
-                                    },
+                                    onPressed: () {},
                                     child: const Text(
                                       '开始阅读',
                                       style: TextStyle(),
@@ -227,34 +225,41 @@ class BookInfoPageState extends State<BookInfoPage> {
                           vertical: 5, horizontal: 10),
                       child: Wrap(
                         direction: Axis.horizontal,
-                        spacing: 5,
-                        runSpacing: 5,
+                        spacing: 8,
+                        runSpacing: 8,
                         alignment: WrapAlignment.start,
                         children: List.generate(
                           bookInfo.tags.length,
-                          (index) => Ink(
-                            decoration: BoxDecoration(
-                              color: Colors.pink[100],
-                              borderRadius: BorderRadius.circular(20),
+                          (index) => ElevatedButton(
+                            style: ButtonStyle(
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              minimumSize:
+                                  MaterialStateProperty.all(Size(0, 0)),
+                              padding: MaterialStateProperty.all(
+                                  EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10)),
+                              backgroundColor:
+                                  MaterialStateProperty.resolveWith((states) {
+                                //设置按下时的背景颜色
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.pink;
+                                }
+                                //默认不使用背景颜色
+                                return Colors.pink[100];
+                              }),
                             ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(20),
-                              onTap: () => _onTapTag(index),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 10),
-                                child: Text(
-                                  bookInfo.tags[index],
-                                  textAlign: TextAlign.center,
-                                  strutStyle: const StrutStyle(
-                                    forceStrutHeight: true,
-                                    leading: 0.5,
-                                  ),
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
+                            onPressed: () => _onTapTag(index),
+                            child: Text(
+                              bookInfo.tags[index],
+                              style: const TextStyle(
+                                color: Colors.pink,
+                                fontSize: 12,
                               ),
+                              strutStyle: const StrutStyle(
+                                forceStrutHeight: true,
+                                leading: 0.5,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -275,7 +280,7 @@ class BookInfoPageState extends State<BookInfoPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
-                      child: bookInfo.description == null
+                      child: bookInfo.description == ""
                           ? const Text('暂无简介')
                           : Text(bookInfo.description),
                     ),
